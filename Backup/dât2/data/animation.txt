@@ -1,0 +1,127 @@
+41
+
+st_kick
+s_kick1 150000000 s_kick2 150000000 s_kick3 150000000 s_kick4 150000000 s_kick5 150000000 s_kick6 150000000 s_punch1 150000000
+
+st_punch
+s_punch1 100000000 s_punch2 100000000 s_punch3 100000000 s_punch4 100000000 s_punch5 100000000 s_punch6 100000000 s_punch7 100000000
+
+st_jumpkick
+s_punch7 150000000 s_jumpkick1 150000000 s_jumpkick2 150000000 s_jumpkick3 150000000 s_jumpkick4 150000000 s_jumpkick5 150000000
+
+st_run
+s_run2 150000000 s_run3 150000000 s_run4 150000000 s_run5 150000000 s_run6 150000000 s_run7 150000000 s_run8 150000000
+
+blade
+blade1 150000000 blade2 150000000 blade3 150000000
+
+idle
+idle1 70000000 idle2 70000000 idle3 70000000 idle2 70000000 idle1 1500000000
+
+idle_red
+idle1_red 70000000 idle2_red 70000000 idle3_red 70000000 idle2_red 70000000 idle1_red 1500000000
+
+idleshoot
+idleshoot1 500000000 idleshoot1 70000000
+
+idleshoot_red
+idleshoot1_red 500000000 idleshoot1_red 70000000
+
+run
+run1 100000000 run2 100000000 run3 100000000 run4 100000000 run5 100000000 run6 100000000 run7 100000000 run8 100000000 run9 100000000 run10 100000000 run11 100000000
+
+run_red
+run1_red 100000000 run2_red 100000000 run3_red 100000000 run4_red 100000000 run5_red 100000000 run6_red 100000000 run7_red 100000000 run8_red 100000000 run9_red 100000000 run10_red 100000000 run11_red 100000000
+
+runshoot
+runshoot1 1 runshoot2 1 runshoot3 1 runshoot4 1 runshoot5 5 runshoot6 1 runshoot7 1 runshoot8 1 runshoot9 1 runshoot10 1
+
+dick
+dick1 70000000 dick3 70000000 dick4 70000000 dick3 70000000 dick1 1500000000
+
+dick_red
+dick1_red 70000000 dick3_red 70000000 dick4_red 70000000 dick3_red 70000000 dick1_red 1500000000
+
+flyingup
+flyingup1 70000000 flyingup2 70000000 flyingup3 70000000 flyingup4 70000000 flyingup5 70000000
+
+flyingup_red
+flyingup1_red 70000000 flyingup2_red 70000000 flyingup3_red 70000000 flyingup4_red 70000000 flyingup5_red 70000000
+
+flyingupshoot
+flyingupshoot1 70000000 flyingupshoot2 70000000 flyingupshoot3 70000000 flyingupshoot4 70000000 flyingupshoot5 70000000
+
+flyingupshoot_red
+flyingupshoot1_red 70000000 flyingupshoot2_red 70000000 flyingupshoot3_red 70000000 flyingupshoot4_red 70000000 flyingupshoot5_red 70000000
+
+landing
+landing1 50000000 landing2 50000000 landing2 50000000
+
+landing_red
+landing1_red 50000000 landing2_red 50000000 landing2_red 50000000
+
+bluefire
+bullet1_1 30000000 bullet1_2 30000000 bullet1_3 30000000 bullet1_4 30000000 bullet1_5 30000000 bullet1_6 30000000 bullet1_7 30000000 bullet1_8 30000000
+
+redeyebullet
+bullet2_1 30000000 bullet2_2 30000000 bullet2_3 30000000
+
+yellow_flower_bullet
+bullet3_1 30000000 bullet3_2 30000000 bullet3_3 30000000 bullet3_4 30000000 bullet3_3 30000000 bullet3_2 30000000
+
+darkraisebullet
+bullet4_1 30000000 bullet4_2 30000000 bullet4_3 30000000 bullet4_2 30000000 bullet4_2 30000000
+
+
+gun_emplacement
+gun_emplacement1 100000000
+
+hurting
+hurting1 70000000 hurting2 70000000 hurting3 70000000 hurting4 70000000 hurting5 70000000 hurting6 70000000 hurting7 70000000 hurting8 70000000 hurting9 70000000 hurting10 70000000 hurting1 100000000
+
+hurting_red
+hurting1_red 70000000 hurting2_red 70000000 hurting3_red 70000000 hurting4_red 70000000 hurting5_red 70000000 hurting6_red 70000000 hurting7_red 70000000 hurting8_red 70000000 hurting9_red 70000000 hurting10_red 70000000 hurting1_red 100000000
+
+clim_wall
+clim_wall 10000000
+
+clim_wall_red
+clim_wall_red 10000000
+
+redeye
+redeye1 170000000 redeye2 170000000
+
+smallredgun
+smallredgun1 170000000
+
+darkraise
+darkraise1 120000000 darkraise2 120000000 darkraise3 120000000 darkraise2 120000000
+
+dangerousgirl
+dangerousgirl1 70000000 dangerousgirl2 70000000 dangerousgirl3 70000000 dangerousgirl4 70000000 dangerousgirl5 70000000 dangerousgirl6 70000000 dangerousgirl7 70000000 dangerousgirl8 70000000
+
+robotR
+robotR1 70000000 robotR2 70000000 robotR3 70000000 robotR2 70000000 
+
+robotRbullet
+bullet5_1 70000000 bullet5_2 70000000 bullet5_3 70000000
+
+rocketUp
+rocketUp1 70000000
+
+rocketDown
+rocketDown1 70000000
+
+rocket
+rocket1 70000000
+
+boss_idle
+boss_idle1 500000000 boss_idle2 130000000 boss_idle3 130000000 boss_idle4 130000000 boss_idle5 130000000 boss_idle4 130000000 boss_idle3 130000000 boss_idle2 130000000
+
+boss_shooting
+boss_shooting1 500000000 boss_shooting2 500000000
+
+boss_slide
+boss_slide1 500000000 boss_slide2 500000000 boss_slide3 500000000 boss_slide4 500000000 
+
+
