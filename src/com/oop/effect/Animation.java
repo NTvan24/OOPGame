@@ -1,10 +1,15 @@
 package com.oop.effect;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import com.oop.gameobject.Megaman;
+import com.oop.gameobject.Skill;
 
 
 
@@ -190,6 +195,21 @@ public class Animation {
         if(drawRectFrame)
             g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
         
+        g2.setColor(Color.RED);
+        g2.drawRect( x - image.getWidth()/2/ratio*ratio2, y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2);
+    }
+    public void draw(int x, int y,int ratio,int ratio2,Graphics2D g2, Skill skill){
+        
+        BufferedImage image = getCurrentImage();
+        g2.drawImage(image, x - image.getWidth()/2/ratio*ratio2, y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2, null);
+        //g2.drawImage(image, x - image.getWidth()/2, y - image.getHeight()/2, null);
+        if(drawRectFrame)
+            g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
+        
+        Rectangle rect = new Rectangle(x - image.getWidth()/2/ratio*ratio2 ,y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2);
+        skill.setRect(rect);
+        
+        skill.drawBoundForCollisionWithMap(g2);
     }
     public void draw(int x, int y,int ratio,Graphics2D g2){
         

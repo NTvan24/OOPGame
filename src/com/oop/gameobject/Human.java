@@ -25,7 +25,7 @@ public abstract class Human extends ParticularObject{
 		this.isDash = isDash;
 	}
 
-	public abstract void run();
+	public abstract void run(int dir);
     
     public abstract void jump();
     

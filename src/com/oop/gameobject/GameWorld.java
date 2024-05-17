@@ -3,6 +3,7 @@ package com.oop.gameobject;
 import java.applet.AudioClip;
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -38,7 +39,7 @@ public class GameWorld {
     public static final int GAMEPLAY = 2;
     public static final int GAMEOVER = 3;
     public static final int GAMEWIN = 4;
-    //public static final int PAUSEGAME = 5;
+    public static final int ENDGAME = 5;
     
     //public static final int INTROGAME = 0;
     //public static final int MEETFINALBOSS = 1;
@@ -60,9 +61,14 @@ public class GameWorld {
     
     FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
     
-    private int numberOfLife = 3;
+    private int player1Point=0;
+    private int player2Point=0;
+    
     private int mapIndex=2;
     private int pauseGameChoose=0;
+    
+    
+    private int testAni=1;
     
 	public AudioClip bgMusic;
 	
@@ -75,6 +81,9 @@ public class GameWorld {
         texts1[3] = "      LET'S GO!.....";
         textTutorial = texts1[0];
 		*/
+		
+		player1Point=0;
+	    player2Point=0;
 		bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		megaman = new Megaman(400, 400, this, ParticularObject.LEAGUE_TEAM);
         megaman2= new Megaman(600,400,this,ParticularObject.ENEMY_TEAM);
@@ -86,7 +95,7 @@ public class GameWorld {
         particularObjectManager.addObject(megaman);
         particularObjectManager.addObject(megaman2);
         
-        runForwardAnim = CacheDataLoader.getInstance().getAnimation("ulti2");
+        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill4");
         runForwardAnim.flipAllImage();
         
         try {
@@ -103,6 +112,11 @@ public class GameWorld {
         bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
 	}
 	
+	public void newGame()
+	{
+		player1Point=0;
+	    player2Point=0;
+	}
 	
 	public void resetMap() {
 		state=GAMEPLAY;
@@ -156,7 +170,8 @@ public void Update(){
             case PAUSEGAME:
                 
                 break;
-           
+            case ENDGAME:
+            	break;
                 
             case GAMEPLAY:
                 particularObjectManager.UpdateObjects();
@@ -180,22 +195,36 @@ public void Update(){
 
                 }
                 */
-                if(megaman.getState() == ParticularObject.DEATH){
-                    numberOfLife --;
-                    if(numberOfLife >= 0){
-                        megaman.setBlood(100);
-                        megaman.setPosY(megaman.getPosY() - 50);
-                        megaman.setState(ParticularObject.FREEZE);
-                        particularObjectManager.addObject(megaman);
-                    }else{
-                        switchState(GAMEOVER);
-                        bgMusic.stop();
-                    }
-                }
+                if(megaman.getState() == ParticularObject.DEATH && state==GAMEPLAY){
+                	if(player2Point==0) {
+                		player2Point=1;
+                		//resetMap();
+                		switchState(ENDGAME);
+                	}
+                	else if (player2Point==1) {
+                		switchState(GAMEOVER);
+                	}
+                }	
+                	
+                if(megaman2.getState() == ParticularObject.DEATH && state==GAMEPLAY ){
+                	if(player1Point==0) {
+                		player1Point=1;
+                		//resetMap();
+                		switchState(ENDGAME);
+                	}
+                	else if (player1Point==1) {
+                		switchState(GAMEOVER);
+                	}
+                }	    
                 /*
                 if(!finalbossTrigger && boss.getState() == ParticularObject.DEATH)
                     switchState(GAMEWIN);
                 */
+                
+                //test sth
+                if(testAni==1)
+                	runForwardAnim.Update(System.nanoTime());
+                
                 break;
             case GAMEOVER:
                 
@@ -205,7 +234,7 @@ public void Update(){
                 break;
         }
         
-        //runForwardAnim.Update(System.nanoTime());
+        
     }
 	
 
@@ -213,7 +242,7 @@ public void Update(){
 public void Render(){
 
     Graphics2D g2 = (Graphics2D) bufferedImage.getGraphics();
-    
+    Graphics g = bufferedImage.getGraphics();
     
     if(g2!=null){
 
@@ -226,33 +255,18 @@ public void Render(){
         camera.lock();
         
         switch(state){
-        case PAUSEGAME:
-            g2.setColor(Color.black);
-            
-            float alpha = (float) 0.5; //draw half transparent
-            AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
-            g2.setComposite(ac);
-            
-            g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-            
-            g2.drawImage(resumeImage, GameFrame.SCREEN_WIDTH/2-resumeImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-200, null);
-            g2.drawImage(quitImage, GameFrame.SCREEN_WIDTH/2-quitImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-100, null);
-            if (pauseGameChoose==0 ) 
-            	g2.drawImage(resumePickImage, GameFrame.SCREEN_WIDTH/2-resumeImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-200, null);
-            else if(pauseGameChoose==1 )
-            	g2.drawImage(quitPickImage, GameFrame.SCREEN_WIDTH/2-quitImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-100, null);
-            /*
-            case TUTORIAL:
-                backgroundMap.draw(g2);
-                if(tutorialState == MEETFINALBOSS){
-                    particularObjectManager.draw(g2);
-                }
-                TutorialRender(g2);
-                
-                break;
-                */
+        
             case GAMEWIN:
             case GAMEPLAY:
+            	if(state==PAUSEGAME) {
+            		g2.setColor(Color.black);
+            		
+                    float alpha = (float) 0.5; //draw half transparent
+                    AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+                    g2.setComposite(ac);
+                    
+                    
+            	}
             	g2.setColor(Color.WHITE);
                 g2.drawImage(buffI,0 ,0 , GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, null);
                 //backgroundMap.draw(g2);
@@ -271,10 +285,10 @@ public void Render(){
                 
                 
                 
-                for(int i = 0; i < numberOfLife; i++){
+                for(int i = 0; i < player1Point; i++){
                     g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i*40, 18, null);
                 }
-                
+                System.out.println(player1Point);
                 if (megaman.isBleeding()==true ) 
                 	g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bleed").getImage(), 20, 90, 35, 35, null);
                 
@@ -282,8 +296,42 @@ public void Render(){
                     g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
                 }
                 
-                break;
-            
+                //test sth
+                if(testAni==1)
+                	runForwardAnim.draw(200, 300, 1,g2);
+                if(state!=PAUSEGAME) break;
+            case PAUSEGAME:
+            	g2.setColor(Color.black);
+        		
+                float alpha = (float) 0.02; //draw half transparent
+                AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+                g2.setComposite(ac);
+            	g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+            	
+            	float alpha2 = (float) 1; //draw half transparent
+                AlphaComposite ac2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha2);
+                g2.setComposite(ac2);
+            	//g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+                g2.drawImage(resumeImage, GameFrame.SCREEN_WIDTH/2-resumeImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-200, null);
+                g2.drawImage(quitImage, GameFrame.SCREEN_WIDTH/2-quitImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-100, null);
+                if (pauseGameChoose==0 ) 
+                	g2.drawImage(resumePickImage, GameFrame.SCREEN_WIDTH/2-resumeImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-200, null);
+                else if(pauseGameChoose==1 )
+                	g2.drawImage(quitPickImage, GameFrame.SCREEN_WIDTH/2-quitImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-100, null);
+                /*
+                case TUTORIAL:
+                    backgroundMap.draw(g2);
+                    if(tutorialState == MEETFINALBOSS){
+                        particularObjectManager.draw(g2);
+                    }
+                    TutorialRender(g2);
+                    
+                    break;
+                    */
+               break;
+            case ENDGAME:
+            	g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
+            	break;
             case GAMEOVER:
                 g2.setColor(Color.BLACK);
                 g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
@@ -299,7 +347,7 @@ public void Render(){
     //FrameImage subImage = CacheDataLoader.getInstance().getFrameImage("blade3");
 	//g2.drawImage(subImage.getImage(), 100,100,200,200, null);
     
-    //runForwardAnim.draw(100, 300, 1,g2);
+    
 }
 
 public int getPauseGameChoose() {

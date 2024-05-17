@@ -300,7 +300,7 @@ public abstract class ParticularObject extends GameObject {
         Rectangle rect = getBoundForCollisionWithMap();
         g2.setColor(Color.BLUE);
         g2.drawRect(rect.x , rect.y , rect.width, rect.height);
-        g2.drawRect(rect.x - (int) getGameWorld().camera.getPosX(), rect.y - (int) getGameWorld().camera.getPosY(), rect.width, rect.height);
+        //g2.drawRect(rect.x - (int) getGameWorld().camera.getPosX(), rect.y - (int) getGameWorld().camera.getPosY(), rect.width, rect.height);
     }
 
     public void drawBoundForCollisionWithEnemy(Graphics2D g2){

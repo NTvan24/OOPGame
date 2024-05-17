@@ -14,11 +14,13 @@ import javax.swing.JPanel;
 
 import com.oop.effect.FrameImage;
 import com.oop.gameobject.GameWorld;
+import com.oop.gameobject.PickSkillMenu;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 
     GameWorld gameWorld;
+    PickSkillMenu skillMenu;
     public static final int NUMBER_OF_MAP = 2;
     InputManager inputManager;
     
@@ -28,12 +30,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     BufferedImage mapPickImage,menuImage,menuTitle,playImage,exitImage,playPickImage,exitPickImage;
     public static final int MENU = 0;
     //public static final int TUTORIAL = 1;
-    public static final int PICKMAP = 10;
-    public static final int GAMEPLAY = 20;
+    public static final int PICKMAP = 1;
+    public static final int GAMEPLAY = 2;
+    public static final int PICKSKILL = 3;
     
     private int menuCurrent=0;
     private int mapCurrent=1;
-    private int state=MENU;
+    private int state=PICKSKILL;
     public boolean isRunning = true;
 
     public GamePanel(){
@@ -57,8 +60,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
         //gameState = new MenuState(this);
     	gameWorld = new GameWorld();
+    	skillMenu = new PickSkillMenu();
+    	
         if(state== GAMEPLAY) gameWorld.resetMap();
-        inputManager = new InputManager(gameWorld,this);
+        inputManager = new InputManager(gameWorld,this,skillMenu);
         //inputManager = new InputManager();
 
     }
@@ -130,20 +135,24 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     		else if (menuCurrent==1)
     			g.drawImage(exitPickImage, 354, 430, 300, 135, null);
     	}
+    	else if(state==PICKSKILL)
+    		g.drawImage(skillMenu.getBufferedImage(), 0, 0, this);
     	}
-
+ 
     
     
     public void Update(){
     	if(state==GAMEPLAY)
     		gameWorld.Update();
-    	
+    	else if(state==PICKSKILL)
+    		skillMenu.Update();
+    		
     }
     public void Render(){
     	if(state==GAMEPLAY)
     		gameWorld.Render();
-    	else if(state==PICKMAP) {
-    		
+    	else if(state==PICKSKILL) {
+    		skillMenu.Render();
     	}
 
     }

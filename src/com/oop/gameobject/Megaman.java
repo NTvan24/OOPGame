@@ -1,22 +1,29 @@
 package com.oop.gameobject;
 
 import java.applet.AudioClip;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.oop.effect.Animation;
 import com.oop.effect.CacheDataLoader;
+import com.oop.userinterface.GameFrame;
 
 
 
 public class Megaman extends Human {
 
     public static final int RUNSPEED = 3;
+    private Megaman enemy;
     
-    private Animation runForwardAnim, runBackAnim, runShootingForwarAnim, runShootingBackAnim;
-    private Animation idleForwardAnim, idleBackAnim, idleShootingForwardAnim, idleShootingBackAnim;
+    
+    private Animation runForwardAnim, runBackAnim;
+    private Animation idleForwardAnim, idleBackAnim;
     private Animation dickForwardAnim, dickBackAnim;
-    private Animation flyForwardAnim, flyBackAnim, flyShootingForwardAnim, flyShootingBackAnim;
+    private Animation flyForwardAnim, flyBackAnim;
+    private Animation shotAnim, shotBackAnim;
     private Animation landingForwardAnim, landingBackAnim;
     private Animation kickAttackAnim, kickAttackBackAnim;
     private Animation punchAttackAnim, punchAttackBackAnim;
@@ -28,7 +35,10 @@ public class Megaman extends Human {
     private Animation castHigh,castHighBack;
     private Animation ultiLow,ultiLowBack;
     private Animation ultiHigh,ultiHighBack;
-    
+    private Animation skill1,skill1Back;
+    private Animation skill2,skill2Back;
+    private Animation skill3,skill3Back;
+    private Animation skill4,skill4Back;
     
     private long lastShootingTime;
     private long lastMeleeAttack;
@@ -45,20 +55,44 @@ public class Megaman extends Human {
     private boolean isUltiLow =false;
     private boolean isUltiHigh =false;
     
+    private Skill skillObject1;
+    private Skill skillObject2;
+    private Skill skillObject3;
+    private Skill skillObject4;
+    
+    private Map<String, Boolean> megamanState = new HashMap<>();
+    private Map<String, Long> startTime = new HashMap<>();
     
     private int meleeAttackCombo=-1;
     
     
     private AudioClip hurtingSound;
     private AudioClip shooting1;
+    private AudioClip punchSound;
     
     public Megaman(float x, float y, GameWorld gameWorld, int team) {
         super(x, y, 70, 100, 0.1f, 100, gameWorld);
+        
+        
+        skillObject1 = new Skill(10, getGameWorld());
+        skillObject1.setTeamType(team);
+        skillObject2 = new Skill(10, getGameWorld());
+        skillObject2.setTeamType(team);
+        skillObject3 = new Skill(10, getGameWorld());
+        skillObject3.setTeamType(team);
+        skillObject4 = new Skill(10, getGameWorld());
+        skillObject4.setTeamType(team);
+        
+        megamanState.put("skill1", false);
+        megamanState.put("skill2", false);
+        megamanState.put("skill3", false);
+        megamanState.put("skill4", false);
+        
         if(team==ParticularObject.LEAGUE_TEAM)
         {
         shooting1 = CacheDataLoader.getInstance().getSound("bluefireshooting");
-        hurtingSound = CacheDataLoader.getInstance().getSound("megamanhurt");
-        
+        hurtingSound = CacheDataLoader.getInstance().getSound("getpunch");
+        punchSound = CacheDataLoader.getInstance().getSound("punch");
         setTeamType(team);
 
         setTimeForFreeze(750*1000000);
@@ -99,17 +133,11 @@ public class Megaman extends Human {
         behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt");
         behurtBackAnim.flipAllImage();
         
-        idleShootingForwardAnim = CacheDataLoader.getInstance().getAnimation("idleshoot");
-        idleShootingBackAnim = CacheDataLoader.getInstance().getAnimation("idleshoot");
-        idleShootingBackAnim.flipAllImage();
-        
-        runShootingForwarAnim = CacheDataLoader.getInstance().getAnimation("runshoot");
-        runShootingBackAnim = CacheDataLoader.getInstance().getAnimation("runshoot");
-        runShootingBackAnim.flipAllImage();
-        
-        flyShootingForwardAnim = CacheDataLoader.getInstance().getAnimation("flyingupshoot");
-        flyShootingBackAnim = CacheDataLoader.getInstance().getAnimation("flyingupshoot");
-        flyShootingBackAnim.flipAllImage();
+        shotAnim=CacheDataLoader.getInstance().getAnimation("shot");
+        shotBackAnim=CacheDataLoader.getInstance().getAnimation("shot");
+        shotBackAnim.flipAllImage();
+        shotAnim.setIsRepeated(false);
+        shotBackAnim.setIsRepeated(false);
         
         kickAttackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
         kickAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
@@ -148,12 +176,35 @@ public class Megaman extends Human {
         ultiHigh.setIsRepeated(false);
         ultiHighBack.setIsRepeated(false);
         
+        skill1 = CacheDataLoader.getInstance().getAnimation("skill1");
+        skill1Back = CacheDataLoader.getInstance().getAnimation("skill1");
+        skill1Back.flipAllImage();
+        skill1.setIsRepeated(false);
+        skill1Back.setIsRepeated(false);
+        
+        skill2 = CacheDataLoader.getInstance().getAnimation("skill2");
+        skill2Back = CacheDataLoader.getInstance().getAnimation("skill2");
+        skill2Back.flipAllImage();
+        skill2.setIsRepeated(false);
+        skill2Back.setIsRepeated(false);
+        
+        skill3 = CacheDataLoader.getInstance().getAnimation("skill3");
+        skill3Back = CacheDataLoader.getInstance().getAnimation("skill3");
+        skill3Back.flipAllImage();
+        skill3.setIsRepeated(false);
+        skill3Back.setIsRepeated(false);
+        
+        skill4 = CacheDataLoader.getInstance().getAnimation("skill4");
+        skill4Back = CacheDataLoader.getInstance().getAnimation("skill4");
+        skill4Back.flipAllImage();
+        skill4.setIsRepeated(false);
+        skill4Back.setIsRepeated(false);
         }
         else if(team==ParticularObject.ENEMY_TEAM)
         {
         	shooting1 = CacheDataLoader.getInstance().getSound("bluefireshooting");
-            hurtingSound = CacheDataLoader.getInstance().getSound("megamanhurt");
-            
+            hurtingSound = CacheDataLoader.getInstance().getSound("getpunch");
+            punchSound = CacheDataLoader.getInstance().getSound("punch");
             setTeamType(team);
 
             setTimeForFreeze(2000*1000000);
@@ -191,17 +242,11 @@ public class Megaman extends Human {
             behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt");
             behurtBackAnim.flipAllImage();
             
-            idleShootingForwardAnim = CacheDataLoader.getInstance().getAnimation("idleshoot");
-            idleShootingBackAnim = CacheDataLoader.getInstance().getAnimation("idleshoot");
-            idleShootingBackAnim.flipAllImage();
-            
-            runShootingForwarAnim = CacheDataLoader.getInstance().getAnimation("runshoot");
-            runShootingBackAnim = CacheDataLoader.getInstance().getAnimation("runshoot");
-            runShootingBackAnim.flipAllImage();
-            
-            flyShootingForwardAnim = CacheDataLoader.getInstance().getAnimation("flyingupshoot");
-            flyShootingBackAnim = CacheDataLoader.getInstance().getAnimation("flyingupshoot");
-            flyShootingBackAnim.flipAllImage();
+            shotAnim=CacheDataLoader.getInstance().getAnimation("shot");
+            shotBackAnim=CacheDataLoader.getInstance().getAnimation("shot");
+            shotBackAnim.flipAllImage();
+            shotAnim.setIsRepeated(false);
+            shotBackAnim.setIsRepeated(false);
             
             kickAttackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
             kickAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
@@ -227,10 +272,41 @@ public class Megaman extends Human {
             castHighBack = CacheDataLoader.getInstance().getAnimation("cast_high");
             castHighBack.flipAllImage();
             
+            skill1 = CacheDataLoader.getInstance().getAnimation("skill1");
+            skill1Back = CacheDataLoader.getInstance().getAnimation("skill1");
+            skill1Back.flipAllImage();
+            skill1.setIsRepeated(false);
+            skill1Back.setIsRepeated(false);
+            
+            skill2 = CacheDataLoader.getInstance().getAnimation("skill2");
+            skill2Back = CacheDataLoader.getInstance().getAnimation("skill2");
+            skill2Back.flipAllImage();
+            skill2.setIsRepeated(false);
+            skill2Back.setIsRepeated(false);
+            
+            skill3 = CacheDataLoader.getInstance().getAnimation("skill3");
+            skill3Back = CacheDataLoader.getInstance().getAnimation("skill3");
+            skill3Back.flipAllImage();
+            skill3.setIsRepeated(false);
+            skill3Back.setIsRepeated(false);
+            
+            skill4 = CacheDataLoader.getInstance().getAnimation("skill4");
+            skill4Back = CacheDataLoader.getInstance().getAnimation("skill4");
+            skill4Back.flipAllImage();
+            skill4.setIsRepeated(false);
+            skill4Back.setIsRepeated(false);
         }
     }
 
-    public boolean isFreeze() {
+    public Megaman getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Megaman enemy) {
+		this.enemy = enemy;
+	}
+
+	public boolean isFreeze() {
 		return isFreeze;
 	}
 
@@ -242,13 +318,15 @@ public class Megaman extends Human {
     public void Update() {
 
         super.Update();
+        if(getPosY()>GameFrame.SCREEN_HEIGHT+30)
+        	setState(ParticularObject.DEATH);
         if(isFreeze) {
         	if(System.nanoTime() - lastFreeze > 750*1000000){
                 isFreeze = false;
             }
         }
         if(isShooting){
-            if(System.nanoTime() - lastShootingTime > 500*1000000){
+            if(System.nanoTime() - lastShootingTime > 400*1000000){
                 isShooting = false;
             }
         }
@@ -291,6 +369,42 @@ public class Megaman extends Human {
     			isUltiHigh=false;
     			
     		}
+        if(megamanState.get("skill1")==true)
+        	if(System.nanoTime()-startTime.get("skill1")>1200*1000000)
+        	{
+        		megamanState.put("skill1", false);
+        		skillObject1.setState(ParticularObject.DEATH);
+        	}
+        
+        if(megamanState.get("skill2")==true)
+        	if(System.nanoTime()-startTime.get("skill2")>800*1000000)
+        	{
+        		megamanState.put("skill2", false);
+        		skillObject2.setState(ParticularObject.DEATH);
+        	}
+        
+        if(megamanState.get("skill3")==true) {
+        	if(getDirection()==RIGHT_DIR)
+        		setSpeedX(5);
+        	else setSpeedX(-5);
+        	if(System.nanoTime()-startTime.get("skill3")>600*1000000)
+        	{
+        		megamanState.put("skill3", false);
+        		setSpeedX(0);
+        		skillObject3.setState(ParticularObject.DEATH);
+        	}
+        }
+        if(megamanState.get("skill4")==true) {
+        	if(getDirection()==RIGHT_DIR)
+        		setSpeedX(5);
+        	else setSpeedX(-5);
+        	if(System.nanoTime()-startTime.get("skill4")>450*1000000)
+        	{
+        		megamanState.put("skill4", false);
+        		setSpeedX(0);
+        		skillObject4.setState(ParticularObject.DEATH);
+        	}
+        }
     }
 
     @Override
@@ -338,25 +452,27 @@ public class Megaman extends Human {
                                     g2);
                         }
 
-                    }else if(getIsJumping()){
+                    }
+                    else if(getIsJumping()){
 
                         if(getDirection() == RIGHT_DIR){
                             flyForwardAnim.Update(System.nanoTime());
                             if(isShooting){
-                                flyShootingForwardAnim.setCurrentFrame(flyForwardAnim.getCurrentFrame());
-                                flyShootingForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()) + 10, (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                shotAnim.Update(System.nanoTime());
+                                shotAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()) + 10, (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                             }else
                                 flyForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                         }else{
                             flyBackAnim.Update(System.nanoTime());
                             if(isShooting){
-                                flyShootingBackAnim.setCurrentFrame(flyBackAnim.getCurrentFrame());
-                                flyShootingBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()) - 10, (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                shotBackAnim.Update(System.nanoTime());
+                                shotBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()) - 10, (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                             }else
                             flyBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                         }
 
-                    }else if(getIsDicking()){
+                    }
+                    else if(getIsDicking()){
 
                         if(getDirection() == RIGHT_DIR){
                             dickForwardAnim.Update(System.nanoTime());
@@ -381,24 +497,45 @@ public class Megaman extends Human {
                             }
                         }else
                         if(getSpeedX() > 0){
+                        	if(megamanState.get("skill3")==true) {
+                            	skill3.Update(System.nanoTime());
+                            	skill3.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject3);
+                            	
+                            }else if(megamanState.get("skill4")==true) {
+                                	skill4.Update(System.nanoTime());
+                                	skill4.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject4);
+                                	
+                            }else{
                         	runForwardAnim.Update(System.nanoTime());
                         	
                             if(isShooting){
-                                runShootingForwarAnim.setCurrentFrame(runForwardAnim.getCurrentFrame() - 1);
-                                runShootingForwarAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 1,g2);
+                                shotAnim.Update(System.nanoTime());
+                                shotAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 1,g2);
                             }else
                                 runForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 5,6,g2);
                             if(runForwardAnim.getCurrentFrame() == 1) runForwardAnim.setIgnoreFrame(0);
+                            }
                         }else if(getSpeedX() < 0){
+                        	if(megamanState.get("skill3")==true) {
+                            	skill3Back.Update(System.nanoTime());
+                            	skill3Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject3);
+                            	
+                            }
+                        	else if(megamanState.get("skill4")==true) {
+                            	skill4Back.Update(System.nanoTime());
+                            	skill4Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject4);
+                            	
+                            }else{
                             runBackAnim.Update(System.nanoTime());
                             
                             if(isShooting){
-                                runShootingBackAnim.setCurrentFrame(runBackAnim.getCurrentFrame() - 1);
-                                runShootingBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                shotBackAnim.Update(System.nanoTime());
+                                shotBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                             }else
                             	
                                 runBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                             if(runBackAnim.getCurrentFrame() == 1) runBackAnim.setIgnoreFrame(0);
+                        	}
                         }else{
                             if(getDirection() == RIGHT_DIR){
                             	if (isMeleeAttack) {
@@ -417,33 +554,45 @@ public class Megaman extends Human {
                             		}
                             	}
                             	else if(isShooting){
-                                    idleShootingForwardAnim.Update(System.nanoTime());
-                                    idleShootingForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 1,g2);
+                                    shotAnim.Update(System.nanoTime());
+                                    shotAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 1,g2);
                                 }else if(isCastingLow) {
                                 		castLow.Update(System.nanoTime());
-                                		castLow.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                		castLow.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 		if(castLow.getCurrentFrame() == 1) castLow.setIgnoreFrame(0);
                                 	}
-                                	else if (isCastingHigh) {
-                                		castHigh.Update(System.nanoTime());
-                                		castHigh.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
-                                		if(castHigh.getCurrentFrame() == 1) castHigh.setIgnoreFrame(0);
-                                	}
-                                	else if (isUltiLow){
-                                		System.out.println("isultilow");
-                                		ultiLow.Update(System.nanoTime());
-                                		ultiLow.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
-                                	}
-                                	else if (isUltiHigh)
-                                	{
-                                		System.out.println("isultihig");
-                                		ultiHigh.Update(System.nanoTime());
-                                		ultiHigh.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
-                                	}
-                                	else {
-                                    idleForwardAnim.Update(System.nanoTime());
+                                else if (isCastingHigh) {
+                                	castHigh.Update(System.nanoTime());
+                                	castHigh.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                	if(castHigh.getCurrentFrame() == 1) castHigh.setIgnoreFrame(0);
+                                }
+                                else if (isUltiLow){
+                                	//System.out.println("isultilow");
+                                	ultiLow.Update(System.nanoTime());
+                                	ultiLow.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }
+                                else if (isUltiHigh)
+                                {
+                                	//System.out.println("isultihig");
+                                	ultiHigh.Update(System.nanoTime());
+                                	ultiHigh.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }
+                                else if(megamanState.get("skill1")==true) {
+                                	skill1.Update(System.nanoTime());
+                                	skill1.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject1);
+                                }
+                                else if(megamanState.get("skill2")==true) {
+                                	skill2.Update(System.nanoTime());
+                                	skill2.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject2);
+                                }
+                                else if(megamanState.get("skill3")==true) {
+                                	skill3.Update(System.nanoTime());
+                                	skill3.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }
+                                else {
+                                	idleForwardAnim.Update(System.nanoTime());
                                     idleForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
-                                	}
+                                }
                                 
                             }
                             else{
@@ -464,33 +613,47 @@ public class Megaman extends Human {
                             	}
                             	else
                                 if(isShooting){
-                                    idleShootingBackAnim.Update(System.nanoTime());
-                                    idleShootingBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                    shotBackAnim.Update(System.nanoTime());
+                                    shotBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
                                 }else if(isCastingLow) {
                                 		castLowBack.Update(System.nanoTime());
-                                		castLowBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                		castLowBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 		if(castLowBack.getCurrentFrame() == 1) castLowBack.setIgnoreFrame(0);
                                 }
-                                	else if (isCastingHigh) {
+                                else if (isCastingHigh) {
                                 		castHighBack.Update(System.nanoTime());
-                                		castHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
+                                		castHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 		if(castHighBack.getCurrentFrame() == 1) castHighBack.setIgnoreFrame(0);
-                                	}else if (isUltiLow){
-                                		System.out.println("isultilow:"+isUltiLow);
+                                }else if (isUltiLow){
+                                		//System.out.println("isultilow:"+isUltiLow);
                                 		ultiLowBack.Update(System.nanoTime());
-                                		ultiLowBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
-                                	}
-                                	else if (isUltiHigh)
-                                	{
-                                		System.out.println("isultihig:"+isUltiHigh);
+                                		ultiLowBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }
+                                else if (isUltiHigh)
+                                {
+                                		//System.out.println("isultihig:"+isUltiHigh);
                                 		ultiHighBack.Update(System.nanoTime());
-                                		ultiHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),1, g2);
-                                	}
+                                		ultiHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }
+                                else if(megamanState.get("skill1")==true) {
+                                	skill1Back.Update(System.nanoTime());
+                                	skill1Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject1);
                                 	
-                                	else {
+                                }
+                                else if(megamanState.get("skill2")==true) {
+                                	skill2Back.Update(System.nanoTime());
+                                	skill2Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject2);
+                                	
+                                }
+                                else if(megamanState.get("skill3")==true) {
+                                	skill3Back.Update(System.nanoTime());
+                                	skill3Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                	
+                                }	
+                                else {
                                     idleBackAnim.Update(System.nanoTime());
                                     idleBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
-                                	}
+                                }
                                 }
                             }
                         }            
@@ -528,43 +691,51 @@ public class Megaman extends Human {
     }
 
     @Override
-    public void run() {
-        if(getDirection() == LEFT_DIR)
-            setSpeedX(-3);
-        else setSpeedX(3);
+    public void run(int dir) {
+    	
+    	if(freeze()==false) {
+    		if(dir==ParticularObject.RIGHT_DIR)
+    			setDirection(ParticularObject.RIGHT_DIR);
+    		else setDirection(ParticularObject.LEFT_DIR);
+    		
+	        if(getDirection() == LEFT_DIR)
+	            setSpeedX(-3);
+	        else setSpeedX(3);
+    	}
     }
 
     @Override
     public void jump() {
-
-        if(!getIsJumping()){
-            setIsJumping(true);
-            setSpeedY(-5.0f);           
-            flyBackAnim.reset();
-            flyForwardAnim.reset();
-        }
-        // for clim wall
-        else{
-            Rectangle rectRightWall = getBoundForCollisionWithMap();
-            rectRightWall.x += 1;
-            Rectangle rectLeftWall = getBoundForCollisionWithMap();
-            rectLeftWall.x -= 1;
-            
-            if(getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall)!=null && getSpeedX() > 0){
-                setSpeedY(-5.0f);
-                //setSpeedX(-1);
-                flyBackAnim.reset();
-                flyForwardAnim.reset();
-                //setDirection(LEFT_DIR);
-            }else if(getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall)!=null && getSpeedX() < 0){
-                setSpeedY(-5.0f);
-                //setSpeedX(1);
-                flyBackAnim.reset();
-                flyForwardAnim.reset();
-                //setDirection(RIGHT_DIR);
-            }
-                
-        }
+    	
+	        if(!getIsJumping()){
+	            setIsJumping(true);
+	            setSpeedY(-5.0f);           
+	            flyBackAnim.reset();
+	            flyForwardAnim.reset();
+	        }
+	        // for clim wall
+	        else{
+	            Rectangle rectRightWall = getBoundForCollisionWithMap();
+	            rectRightWall.x += 1;
+	            Rectangle rectLeftWall = getBoundForCollisionWithMap();
+	            rectLeftWall.x -= 1;
+	            
+	            if(getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall)!=null && getSpeedX() > 0){
+	                setSpeedY(-5.0f);
+	                //setSpeedX(-1);
+	                flyBackAnim.reset();
+	                flyForwardAnim.reset();
+	                //setDirection(LEFT_DIR);
+	            }else if(getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall)!=null && getSpeedX() < 0){
+	                setSpeedY(-5.0f);
+	                //setSpeedX(1);
+	                flyBackAnim.reset();
+	                flyForwardAnim.reset();
+	                //setDirection(RIGHT_DIR);
+	            }
+	                
+	        }
+    	
     }
 
     @Override
@@ -591,36 +762,49 @@ public class Megaman extends Human {
         runBackAnim.unIgnoreFrame(0);
     }
     
+    
+    
     public void cast() {
-    	if(isCastingLow==false&&isCastingHigh==false) {
-    		castLow.unIgnoreFrame(0);
-    		castLowBack.unIgnoreFrame(0);
-    		castHigh.unIgnoreFrame(0);
-    		castHighBack.unIgnoreFrame(0);
-    		castLow.reset();
-    		castHigh.reset();
-    		castLowBack.reset();
-    		castHighBack.reset();
-    		
-    		ultiLow.reset();
-    		ultiLowBack.reset();
-    		ultiHigh.reset();
-    		ultiHighBack.reset();
-    		
-    		isCastingLow=true;
-    		lastCast=System.nanoTime();
+    	if(freeze()==false) {
+	    	if(isCastingLow==false&&isCastingHigh==false) {
+	    		castLow.unIgnoreFrame(0);
+	    		castLowBack.unIgnoreFrame(0);
+	    		castHigh.unIgnoreFrame(0);
+	    		castHighBack.unIgnoreFrame(0);
+	    		castLow.reset();
+	    		castHigh.reset();
+	    		castLowBack.reset();
+	    		castHighBack.reset();
+	    		
+	    		ultiLow.reset();
+	    		ultiLowBack.reset();
+	    		ultiHigh.reset();
+	    		ultiHighBack.reset();
+	    		
+	    		isCastingLow=true;
+	    		lastCast=System.nanoTime();
+	    	}
     	}
-    	
     }
-    public void unCast() {
-    	if(isCastingLow==true)
-    	{	startUlti=System.nanoTime();
+    public void unCast(Megaman enemy) {
+    	int range=180;
+    	int dmg=10;
+    	boolean bleed=false;
+    	
+    	if(isCastingLow==true) {
+    		range=110;
+    		dmg = 10;
+    		meleeAttack(enemy, range, dmg, bleed, false);
+    		startUlti=System.nanoTime();
     		isCastingLow=false;
     		isCastingHigh=false;
     		castSkillLow(); 
     	}
     	else if (isCastingHigh==true)
     	{
+    		range=160;
+    		dmg = 20;
+    		meleeAttack(enemy, range, dmg, bleed, true);
     		startUlti=System.nanoTime();
     		isCastingLow=false;
     		isCastingHigh=false;
@@ -636,6 +820,7 @@ public class Megaman extends Human {
     public void castSkillHigh() {
     	isUltiHigh=true;
     	startUlti=System.nanoTime();
+    	
     }
     @Override
     public void attack() {
@@ -644,27 +829,29 @@ public class Megaman extends Human {
             
             shooting1.play();
             
-            Bullet bullet = new BlueFire(getPosX(), getPosY(), getGameWorld());
+            shotAnim.reset();
+            shotBackAnim.reset();
+           Shuriken shuriken = new Shuriken(getPosX(), getPosY(), getGameWorld());
             if(getDirection() == LEFT_DIR) {
-                bullet.setSpeedX(-10);
-                bullet.setPosX(bullet.getPosX() - 40);
+            	shuriken.setSpeedX(-3);
+            	shuriken.setPosX(shuriken.getPosX() - 40);
                 if(getSpeedX() != 0 && getSpeedY() == 0){
-                    bullet.setPosX(bullet.getPosX() - 10);
-                    bullet.setPosY(bullet.getPosY() - 5);
+                	shuriken.setPosX(shuriken.getPosX() - 10);
+                	shuriken.setPosY(shuriken.getPosY() - 5);
                 }
             }else {
-                bullet.setSpeedX(10);
-                bullet.setPosX(bullet.getPosX() + 40);
+            	shuriken.setSpeedX(3);
+            	shuriken.setPosX(shuriken.getPosX() + 40);
                 if(getSpeedX() != 0 && getSpeedY() == 0){
-                    bullet.setPosX(bullet.getPosX() + 10);
-                    bullet.setPosY(bullet.getPosY() - 5);
+                	shuriken.setPosX(shuriken.getPosX() + 10);
+                	shuriken.setPosY(shuriken.getPosY() - 5);
                 }
             }
             if(getIsJumping())
-                bullet.setPosY(bullet.getPosY() - 20);
+            	shuriken.setPosY(shuriken.getPosY() - 20);
             
-            bullet.setTeamType(getTeamType());
-            getGameWorld().bulletManager.addObject(bullet);
+            shuriken.setTeamType(getTeamType());
+            getGameWorld().bulletManager.addObject(shuriken);
             
             lastShootingTime = System.nanoTime();
             isShooting = true;
@@ -673,41 +860,145 @@ public class Megaman extends Human {
     
     }
     
-    public void meleeAttack(Megaman enemy, double range, int dmg, boolean bleed) {
-    	if (isMeleeAttack==false) {
+    public void normalAttack(Megaman enemy) {
+    	int range=120;
+    	int dmg=10;
+    	boolean bleed=false;
+    	
+    	if(freeze()==false) {
+	    	if (isMeleeAttack==false) {
+	    		punchSound.play();
+	    	
+	    		//meleeAttackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), g2);
+	    		/*
+	    		if (enemy.getPosX()-getPosX()<range && enemy.getPosY()-getPosY()<70 && enemy.getPosY()-getPosY()>-70 &&enemy.getPosX()-getPosX()>=0) 
+	    			{
+	    				enemy.beHurt(dmg,bleed);
+	    				if(meleeAttackCombo==1) enemy.bounceBack(RIGHT_DIR);
+	    			}
+	    		*/
+		    	if(meleeAttackCombo==1) this.meleeAttack(enemy, range, dmg, bleed, true);
+		    	else this.meleeAttack(enemy, range, dmg, bleed, false);
+		    	
+		    	isMeleeAttack=true;
+		    	meleeAttackCombo++;
+		    	if(meleeAttackCombo>2)  meleeAttackCombo=0;
+		    	lastMeleeAttack= System.nanoTime();
+	    	}
+    	}
+    }
+    public void meleeAttack(Megaman enemy, double range, int dmg, boolean bleed, boolean bounce) {
     	if (getDirection()==RIGHT_DIR) {
     		//meleeAttackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), g2);
     		if (enemy.getPosX()-getPosX()<range && enemy.getPosY()-getPosY()<70 && enemy.getPosY()-getPosY()>-70 &&enemy.getPosX()-getPosX()>=0) 
     			{
     				enemy.beHurt(dmg,bleed);
-    				if(meleeAttackCombo==1) enemy.bounceBack(RIGHT_DIR);
+    				if(bounce==true) enemy.bounceBack(RIGHT_DIR);
     			}
     	}
     	if (getDirection()==LEFT_DIR) {
     		if (enemy.getPosX()-getPosX()>-range && enemy.getPosY()-getPosY()<70 && enemy.getPosY()-getPosY()>-70 &&enemy.getPosX()-getPosX()<=0) 
     			{
     				enemy.beHurt(dmg,bleed);
-    				if(meleeAttackCombo==1) enemy.bounceBack(LEFT_DIR);
+    				if(bounce==true) enemy.bounceBack(LEFT_DIR);
     			}
-    	}
-    	isMeleeAttack=true;
-    	meleeAttackCombo++;
-    	if(meleeAttackCombo>2)  meleeAttackCombo=0;
-    	lastMeleeAttack= System.nanoTime();
     	}
     }
     
+    
     public void dash() {
-    	if(System.nanoTime()-lastDash>1000*1000000)
-    	if(!getIsJumping()) {
-    	setDash(true);
-    	lastDash=System.nanoTime();
-    	}
+    	if(freeze()==false)
+    		if(System.nanoTime()-lastDash>1000*1000000)
+    				if(!getIsJumping()) {
+    					setDash(true);
+    					lastDash=System.nanoTime();
+    				}
     }
+    public boolean freeze() {
+    	if(		isFreeze==true||
+    			isCastingLow==true||
+    			isCastingHigh==true||
+    			isUltiLow==true||
+    			isUltiHigh==true
+    			)
+    		return true;
+    	else return false;
+    }
+    
     @Override
     public void hurtingCallback(){
         System.out.println("Call back hurting");
         hurtingSound.play();
     }
-
+    public void skill1(Megaman enemy) {
+    	//skill ban ra con rong nuoc
+    	if(megamanState.get("skill1")==false)
+    		megamanState.put("skill1", true);
+    		startTime.put("skill1", System.nanoTime());
+    		skill1.reset();
+    		skill1Back.reset();
+    		/*
+    		int range=210;
+    		int dmg = 20;
+    		meleeAttack(enemy, range, dmg, false, true);
+    		*/
+    		
+    		skillObject1.setState(ParticularObject.ALIVE);
+    		skillObject1.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject1);
+            
+    }
+    
+    public void skill3(Megaman enemy) {
+    	//skill dam ra mauxanh
+    	if(megamanState.get("skill3")==false)
+    		megamanState.put("skill3", true);
+    		startTime.put("skill3", System.nanoTime());
+    		skill3.reset();
+    		skill3Back.reset();
+    		
+    		
+    		skillObject3.setState(ParticularObject.ALIVE);
+    		skillObject3.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject3);
+    	
+    }
+    
+    public void skill2(Megaman enemy) {
+    	//skill dam ra mauxanh
+    	if(megamanState.get("skill2")==false)
+    		megamanState.put("skill2", true);
+    		startTime.put("skill2", System.nanoTime());
+    		skill2.reset();
+    		skill2Back.reset();
+    		
+    		
+    		skillObject2.setState(ParticularObject.ALIVE);
+    		skillObject2.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject2);
+    	
+    }
+    
+    public void skill4(Megaman enemy) {
+    	//skill dam ra mauxanh
+    	if(megamanState.get("skill4")==false)
+    		megamanState.put("skill4", true);
+    		startTime.put("skill4", System.nanoTime());
+    		skill4.reset();
+    		skill4Back.reset();
+    		
+    		
+    		skillObject4.setState(ParticularObject.ALIVE);
+    		skillObject4.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject4);
+    	
+    }
+    public void drawBoundForCollisionWithSkill(Graphics2D g2){
+        Rectangle rect = getBoundForCollisionWithEnemy();
+        g2.setColor(Color.RED);
+        
+        g2.drawRect(rect.x - (int) getGameWorld().camera.getPosX(), rect.y - (int) getGameWorld().camera.getPosY(), rect.width, rect.height);
+    }
+    
+    
 }

@@ -1,5 +1,251 @@
 
-278
+313
+
+shot_1
+image data/shot.png
+x 75
+y 16
+w 50
+h 94
+
+shot_2
+image data/shot.png
+x 160
+y 20
+w 59
+h 89
+
+shuriken_1
+image data/shot.png
+x 9
+y 137
+w 29
+h 34
+
+shuriken_2
+image data/shot.png
+x 35
+y 138
+w 32
+h 33
+
+shuriken_3
+image data/shot.png
+x 66
+y 136
+w 33
+h 37
+
+shuriken_4
+image data/shot.png
+x 97
+y 136
+w 34
+h 35
+
+skill4_1
+image data/skill4.png
+x 60
+y 125
+w 99
+h 97
+
+skill4_2
+image data/skill4.png
+x 164
+y 117
+w 135
+h 102
+
+skill4_3
+image data/skill4.png
+x 297
+y 122
+w 129
+h 96
+
+skill4_4
+image data/skill4.png
+x 41
+y 341
+w 124
+h 88
+
+skill4_5
+image data/skill4.png
+x 225
+y 341
+w 119
+h 87
+
+skill3_1
+image data/skill3.png
+x 77
+y 134
+w 84
+h 84
+
+skill3_2
+image data/skill3.png
+x 172
+y 136
+w 99
+h 82
+
+skill3_3
+image data/skill3.png
+x 279
+y 112
+w 124
+h 105
+
+skill3_4
+image data/skill3.png
+x 0
+y 313
+w 211
+h 115
+
+skill3_5
+image data/skill3.png
+x 224
+y 346
+w 113
+h 85
+
+skill3_6
+image data/skill3.png
+x 343
+y 344
+w 94
+h 87
+
+skill1_1
+image data/skill1.png
+x 124
+y 286
+w 47
+h 108
+
+skill1_2
+image data/skill1.png
+x 205
+y 295
+w 55
+h 100
+
+skill1_3
+image data/skill1.png
+x 308
+y 295
+w 189
+h 102
+
+skill1_4
+image data/skill1.png
+x 523
+y 295
+w 234
+h 107
+
+skill1_5
+image data/skill1.png
+x 835
+y 282
+w 251
+h 118
+
+skill1_6
+image data/skill1.png
+x 1144
+y 278
+w 247
+h 123
+
+skill1_7
+image data/skill1.png
+x 5
+y 537
+w 321
+h 140
+
+skill1_8
+image data/skill1.png
+x 392
+y 560
+w 378
+h 119
+
+skill1_9
+image data/skill1.png
+x 779
+y 567
+w 380
+h 109
+
+skill1_10
+image data/skill1.png
+x 25
+y 840
+w 377
+h 90
+
+skill1_11
+image data/skill1.png
+x 478
+y 844
+w 355
+h 86
+
+skill1_12
+image data/skill1.png
+x 930
+y 846
+w 296
+h 83
+
+skill2_1
+image data/skill2.png
+x 158
+y 180
+w 81
+h 85
+
+skill2_2
+image data/skill2.png
+x 272
+y 164
+w 65
+h 100
+
+skill2_3
+image data/skill2.png
+x 344
+y 130
+w 54
+h 136
+
+skill2_4
+image data/skill2.png
+x 409
+y 133
+w 46
+h 131
+
+skill2_5
+image data/skill2.png
+x 63
+y 328
+w 43
+h 116
+
+skill2_6
+image data/skill2.png
+x 115
+y 349
+w 54
+h 94
+
 
 gethit1
 image data/gethit.png
