@@ -20,7 +20,7 @@ public abstract class ParticularObject extends GameObject {
     public static final int BEHURT = 1;
     public static final int FEY = 2; //sap chet
     public static final int DEATH = 3;
-    //public static final int NOBEHURT = 4; //bat tu tam thoi sau khi hoisinh
+    public static final int NOBEHURT = 5; //bat tu tam thoi sau khi hoisinh
     public static final int FREEZE = 4;
     private int state = ALIVE;
     
@@ -195,7 +195,9 @@ public abstract class ParticularObject extends GameObject {
         return bound;
     }
 
-    public void beHurt(int damgeEat, boolean bleed){
+    public boolean beHurt(int damgeEat, boolean bleed){
+    	//System.out.println(state);
+    	if (state!=NOBEHURT) {
         setBlood(getBlood() - damgeEat);
         state = BEHURT;
         if (bleed == true) 
@@ -206,6 +208,9 @@ public abstract class ParticularObject extends GameObject {
         		startTimeBleeding = System.nanoTime();
         	}
         hurtingCallback();
+        return true;
+    	}
+    	return false;
     }
     
     
@@ -216,7 +221,9 @@ public abstract class ParticularObject extends GameObject {
     
     @Override
     public void Update(){
+    	//System.out.println(state);
         switch(state){
+        	case NOBEHURT:
             case ALIVE:
                 
                 // note: SET DAMAGE FOR OBJECT NO DAMAGE

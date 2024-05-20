@@ -310,7 +310,7 @@ public void LoadData()throws IOException{
     LoadPhysMap(1);
     LoadPhysMap(2);
     
-    LoadBackgroundMap();
+    //LoadBackgroundMap();
     LoadSounds();
 }
 

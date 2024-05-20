@@ -13,26 +13,30 @@ import javax.imageio.ImageIO;
 import com.oop.effect.CacheDataLoader;
 import com.oop.effect.FrameImage;
 import com.oop.userinterface.GameFrame;
+import com.oop.userinterface.GamePanel;
 
 public class PickSkillMenu {
 	
-	
+	GamePanel gamePanel;
 	private BufferedImage bufferedImage;
 
     FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
-
+    
     BufferedImage pickSkillMenu,title1,title2;
     
     private int testAni=1;
     private int currentChoose1=0;
     private int currentChoose2=4;
     private int maxSkill=11;
+    private int countSkill1;
+    private int countSkill2;
     
 	public AudioClip bgMusic;
 	
-	public PickSkillMenu() {
-		
-		
+	public PickSkillMenu(GamePanel gamePanel ) {
+		this.gamePanel=gamePanel;
+		countSkill1=0;
+		countSkill2=0;
 		try {
 			pickSkillMenu=ImageIO.read(new File("data/pickskill.png"));
 			title1=ImageIO.read(new File("data/pickskilltitle.png"));
@@ -137,7 +141,7 @@ public void decreaseChoose2(boolean doc) {
 		if(currentChoose2<0) currentChoose2=maxSkill-1;
 	}
 	else if(doc==true) {
-		if(currentChoose2-5<1) {
+		if(currentChoose2-5<0) {
 			int temp = currentChoose2 % 5;
 			if(maxSkill%5<temp) {
 				currentChoose2 = (maxSkill/5-1)*5+temp; 
@@ -147,6 +151,23 @@ public void decreaseChoose2(boolean doc) {
 		else currentChoose2=currentChoose2-5;
 		
 	}
+}
+
+public void press() {
+	if(gamePanel.getInputManager().checkSkill()==true) {
+		System.out.println("00000");
+		gamePanel.getGameWorld().resetMap();
+		gamePanel.getGameWorld().newGame();
+		gamePanel.setPanelState(GamePanel.GAMEPLAY);
+	}
+	else {
+		System.out.println(countSkill1);
+		if (countSkill1==0) gamePanel.getInputManager().setPressR(currentChoose1);
+		else if(countSkill1==1) gamePanel.getInputManager().setPressT(currentChoose1);
+		else if(countSkill1==2) gamePanel.getInputManager().setPressY(currentChoose1);
+		countSkill1++;
+	}
+		
 }
 public BufferedImage getBufferedImage(){
     return bufferedImage;

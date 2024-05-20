@@ -27,26 +27,72 @@ public class InputManager {
 		this.gameWorld=gameWorld;
 		this.gamePanel=gamePanel;
 		this.pickSkillMenu=pickSkillMenu;
-		
+		/*
 		press.put(KeyEvent.VK_R, () -> gameWorld.megaman.cast());
-		press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
-		press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
+		press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
+		press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
         unPress.put(KeyEvent.VK_R, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
+        */
 	}
 	
-	public void setPressR(String str) {
-		if (str=="cast")
+	public boolean checkSkill() {
+		if(press.get(KeyEvent.VK_R)!=null &&
+				press.get(KeyEvent.VK_T)!=null &&
+				press.get(KeyEvent.VK_Y)!=null )
+		return true;
+		else return false;
+	}
+	
+	public boolean setPressR(int indexSkill) {
+		if (press.get(KeyEvent.VK_R)!=null) return false;
+		if (indexSkill==0) {
 			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.cast());
-		else if (str=="skill1")
+			unPress.put(KeyEvent.VK_R, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
+			
+		}
+		else if (indexSkill==1)
 			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
+		else if (indexSkill==2)
+			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
+		else if (indexSkill==3)
+			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
+		else if (indexSkill==4)
+			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
+		return true;
+	}
+	
+	public boolean setPressT(int indexSkill) {
+		if (press.get(KeyEvent.VK_T)!=null) return false;
+		if (indexSkill==0) {
+			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.cast());
+			unPress.put(KeyEvent.VK_T, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
+		}
+		else if (indexSkill==1)
+			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
+		else if (indexSkill==2)
+			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
+		else if (indexSkill==3)
+			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
+		else if (indexSkill==4)
+			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
+		return true;
 			
 	}
-	
-	public void setPressT(String str) {
-		if (str=="cast")
-			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.cast());
-		else if (str=="skill1")
-			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
+	public boolean setPressY(int indexSkill) {
+		if (press.get(KeyEvent.VK_Y)!=null) return false;
+		if (indexSkill==0) {
+			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.cast());
+			unPress.put(KeyEvent.VK_Y, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
+		}
+		else if (indexSkill==1)
+			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
+		else if (indexSkill==2)
+			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
+		else if (indexSkill==3)
+			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
+		else if (indexSkill==4)
+			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
+		return true;
 			
 	}
 	
@@ -77,6 +123,8 @@ public class InputManager {
 			//gameWorld.megaman.dick();
 			if(gamePanel.getState()==GamePanel.PICKSKILL)
 				pickSkillMenu.increaseChoose1(true);
+			else if (gamePanel.getState()==GamePanel.GAMEPLAY)
+				gameWorld.megaman.def();
 			break;
 		case KeyEvent.VK_D:
 			//gameWorld.megaman.setDirection(ParticularObject.RIGHT_DIR);
@@ -101,7 +149,13 @@ public class InputManager {
 			
 			break;
 		case KeyEvent.VK_ENTER:
-			if(gamePanel.getState()==GamePanel.PICKMAP)
+			if(gamePanel.getState()==GamePanel.PICKSKILL)
+			{
+				gameWorld.setMapIndex(gamePanel.getMapCurrent());
+				pickSkillMenu.press();
+				
+			}
+			else if(gamePanel.getState()==GamePanel.PICKMAP)
 			{
 				gameWorld.setMapIndex(gamePanel.getMapCurrent());
 				gameWorld.resetMap();
@@ -181,7 +235,7 @@ public class InputManager {
 			gamePanel.decreaseMenuCurrent();
 		else if (gamePanel.getState()==GamePanel.GAMEPLAY) {
 			if (gameWorld.state==GameWorld.GAMEPLAY) {
-				
+				gameWorld.megaman2.def();
 			}
 				
 			else if (gameWorld.state==GameWorld.PAUSEGAME)
@@ -218,11 +272,22 @@ public class InputManager {
 			pickSkillMenu.decreaseChoose2(false);
 		}
 		break;
-	case KeyEvent.VK_O:
+	case KeyEvent.VK_L:
 		gameWorld.megaman2.attack();
 		break;
-	case KeyEvent.VK_P:
+	case KeyEvent.VK_K:
+		gameWorld.megaman2.dash();
+		break;
+	case KeyEvent.VK_J:
 		gameWorld.megaman2.normalAttack(gameWorld.megaman);
+		break;
+	case KeyEvent.VK_U:
+		gameWorld.megaman2.cast();
+		
+		break;
+	case KeyEvent.VK_I:
+		gameWorld.megaman2.skill4(gameWorld.megaman);
+		//System.out.print("skill1");
 		break;
 	case KeyEvent.VK_ESCAPE:
 		if(gamePanel.getState()==GamePanel.PICKMAP)
@@ -248,9 +313,15 @@ public class InputManager {
 		case KeyEvent.VK_UP:
 			
 			break;
+		case KeyEvent.VK_U:
+			gameWorld.megaman2.unCast(gameWorld.megaman);
+			break;
+		case KeyEvent.VK_S:
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
+				gameWorld.megaman.unDef();
+			break;
 		case KeyEvent.VK_DOWN:
-			
-			//gameWorld.megaman.standUp();;
+			gameWorld.megaman2.unDef();			//gameWorld.megaman.standUp();;
 			break;
 		case KeyEvent.VK_RIGHT:
 			if(gameWorld.megaman2.getSpeedX()>0)

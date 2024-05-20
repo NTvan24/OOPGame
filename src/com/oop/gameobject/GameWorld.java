@@ -274,21 +274,29 @@ public void Render(){
                 bulletManager.draw(g2);
                 
                 g2.setColor(Color.GRAY);
-                g2.fillRect(19, 59, 102, 22);
+                g2.fillRect(19, 30, 102, 22);
                 g2.setColor(Color.red);
-                g2.fillRect(20, 60, megaman.getBlood(), 20);
+                g2.fillRect(20, 31, megaman.getBlood(), 20);
                 
                 g2.setColor(Color.GRAY);
-                g2.fillRect(809, 59, 102, 22);
+                g2.fillRect(19, 70, 102, 22);
+                g2.setColor(Color.blue);
+                g2.fillRect(20, 71, megaman.getMana(), 20);
+                
+                g2.setColor(Color.GRAY);
+                g2.fillRect(809, 30, 102, 22);
                 g2.setColor(Color.red);
-                g2.fillRect(810, 60, megaman2.getBlood(), 20);
+                g2.fillRect(810, 31, megaman2.getBlood(), 20);
                 
-                
+                g2.setColor(Color.GRAY);
+                g2.fillRect(809, 70, 102, 22);
+                g2.setColor(Color.blue);
+                g2.fillRect(810, 71, megaman2.getMana(), 20);
                 
                 for(int i = 0; i < player1Point; i++){
                     g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i*40, 18, null);
                 }
-                System.out.println(player1Point);
+                
                 if (megaman.isBleeding()==true ) 
                 	g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bleed").getImage(), 20, 90, 35, 35, null);
                 

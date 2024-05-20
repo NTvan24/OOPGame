@@ -17,11 +17,11 @@ public class Megaman extends Human {
 
     public static final int RUNSPEED = 3;
     private Megaman enemy;
-    
+    private int mana=100;
     
     private Animation runForwardAnim, runBackAnim;
     private Animation idleForwardAnim, idleBackAnim;
-    private Animation dickForwardAnim, dickBackAnim;
+    //private Animation dickForwardAnim, dickBackAnim;
     private Animation flyForwardAnim, flyBackAnim;
     private Animation shotAnim, shotBackAnim;
     private Animation landingForwardAnim, landingBackAnim;
@@ -39,6 +39,7 @@ public class Megaman extends Human {
     private Animation skill2,skill2Back;
     private Animation skill3,skill3Back;
     private Animation skill4,skill4Back;
+    private Animation def,defBack;
     
     private long lastShootingTime;
     private long lastMeleeAttack;
@@ -54,6 +55,7 @@ public class Megaman extends Human {
     private boolean isCastingHigh=false;
     private boolean isUltiLow =false;
     private boolean isUltiHigh =false;
+    private boolean isDef =false;
     
     private Skill skillObject1;
     private Skill skillObject2;
@@ -111,9 +113,7 @@ public class Megaman extends Human {
         
         
         
-        dickForwardAnim = CacheDataLoader.getInstance().getAnimation("dick");
-        dickBackAnim = CacheDataLoader.getInstance().getAnimation("dick");
-        dickBackAnim.flipAllImage();
+       
         
         flyForwardAnim = CacheDataLoader.getInstance().getAnimation("flyingup");
         flyForwardAnim.setIsRepeated(false);
@@ -199,6 +199,10 @@ public class Megaman extends Human {
         skill4Back.flipAllImage();
         skill4.setIsRepeated(false);
         skill4Back.setIsRepeated(false);
+        
+        def = CacheDataLoader.getInstance().getAnimation("def");
+        defBack = CacheDataLoader.getInstance().getAnimation("def");
+        defBack.flipAllImage();
         }
         else if(team==ParticularObject.ENEMY_TEAM)
         {
@@ -210,91 +214,108 @@ public class Megaman extends Human {
             setTimeForFreeze(2000*1000000);
             
             
-            runForwardAnim = CacheDataLoader.getInstance().getAnimation("st_run");
-            runBackAnim= CacheDataLoader.getInstance().getAnimation("st_run");
+            runForwardAnim = CacheDataLoader.getInstance().getAnimation("st_run_g");
+            runBackAnim= CacheDataLoader.getInstance().getAnimation("st_run_g");
             runBackAnim.flipAllImage(); 
             
-            idleForwardAnim = CacheDataLoader.getInstance().getAnimation("idle");
-            idleBackAnim = CacheDataLoader.getInstance().getAnimation("idle");
+            idleForwardAnim = CacheDataLoader.getInstance().getAnimation("idle_g");
+            idleBackAnim = CacheDataLoader.getInstance().getAnimation("idle_g");
             idleBackAnim.flipAllImage();
             
+            dashAnim = CacheDataLoader.getInstance().getAnimation("dash_g");
+            dashBackAnim=CacheDataLoader.getInstance().getAnimation("dash_g");
+            dashBackAnim.flipAllImage();
             
+           
             
-            dickForwardAnim = CacheDataLoader.getInstance().getAnimation("dick");
-            dickBackAnim = CacheDataLoader.getInstance().getAnimation("dick");
-            dickBackAnim.flipAllImage();
-            
-            flyForwardAnim = CacheDataLoader.getInstance().getAnimation("flyingup");
+            flyForwardAnim = CacheDataLoader.getInstance().getAnimation("flyingup_g");
             flyForwardAnim.setIsRepeated(false);
-            flyBackAnim = CacheDataLoader.getInstance().getAnimation("flyingup");
+            flyBackAnim = CacheDataLoader.getInstance().getAnimation("flyingup_g");
             flyBackAnim.setIsRepeated(false);
             flyBackAnim.flipAllImage();
             
-            landingForwardAnim = CacheDataLoader.getInstance().getAnimation("landing");
-            landingBackAnim = CacheDataLoader.getInstance().getAnimation("landing");
+            landingForwardAnim = CacheDataLoader.getInstance().getAnimation("landing_g");
+            landingBackAnim = CacheDataLoader.getInstance().getAnimation("landing_g");
             landingBackAnim.flipAllImage();
             
             climWallBack = CacheDataLoader.getInstance().getAnimation("clim_wall");
             climWallForward = CacheDataLoader.getInstance().getAnimation("clim_wall");
             climWallForward.flipAllImage();
             
-            behurtForwardAnim = CacheDataLoader.getInstance().getAnimation("behurt");
-            behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt");
+            behurtForwardAnim = CacheDataLoader.getInstance().getAnimation("behurt_g");
+            behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt_g");
             behurtBackAnim.flipAllImage();
             
-            shotAnim=CacheDataLoader.getInstance().getAnimation("shot");
-            shotBackAnim=CacheDataLoader.getInstance().getAnimation("shot");
+            shotAnim=CacheDataLoader.getInstance().getAnimation("shot_g");
+            shotBackAnim=CacheDataLoader.getInstance().getAnimation("shot_g");
             shotBackAnim.flipAllImage();
             shotAnim.setIsRepeated(false);
             shotBackAnim.setIsRepeated(false);
             
-            kickAttackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
-            kickAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_kick");
+            kickAttackAnim = CacheDataLoader.getInstance().getAnimation("st_kick_g");
+            kickAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_kick_g");
             kickAttackBackAnim.flipAllImage();
             
-            punchAttackAnim = CacheDataLoader.getInstance().getAnimation("st_punch");
-            punchAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_punch");
+            punchAttackAnim = CacheDataLoader.getInstance().getAnimation("st_punch_g");
+            punchAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_punch_g");
             punchAttackBackAnim.flipAllImage();
             
-            kneeStrikeAttackAnim = CacheDataLoader.getInstance().getAnimation("st_jumpkick");
-            kneeStrikeAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_jumpkick");
+            kneeStrikeAttackAnim = CacheDataLoader.getInstance().getAnimation("st_jumpkick_g");
+            kneeStrikeAttackBackAnim = CacheDataLoader.getInstance().getAnimation("st_jumpkick_g");
             kneeStrikeAttackBackAnim.flipAllImage();
             
-            bounceForward = CacheDataLoader.getInstance().getAnimation("bounce_back");
-            bounceBack= CacheDataLoader.getInstance().getAnimation("bounce_back");
+            bounceForward = CacheDataLoader.getInstance().getAnimation("bounce_back_g");
+            bounceBack= CacheDataLoader.getInstance().getAnimation("bounce_back_g");
             bounceBack.flipAllImage();
             
-            castLow = CacheDataLoader.getInstance().getAnimation("cast_low");
-            castLowBack = CacheDataLoader.getInstance().getAnimation("cast_low");
+            castLow = CacheDataLoader.getInstance().getAnimation("cast_low_g");
+            castLowBack = CacheDataLoader.getInstance().getAnimation("cast_low_g");
             castLowBack.flipAllImage();
             
-            castHigh = CacheDataLoader.getInstance().getAnimation("cast_high");
-            castHighBack = CacheDataLoader.getInstance().getAnimation("cast_high");
+            castHigh = CacheDataLoader.getInstance().getAnimation("cast_high_g");
+            castHighBack = CacheDataLoader.getInstance().getAnimation("cast_high_g");
             castHighBack.flipAllImage();
             
-            skill1 = CacheDataLoader.getInstance().getAnimation("skill1");
-            skill1Back = CacheDataLoader.getInstance().getAnimation("skill1");
+            ultiLow = CacheDataLoader.getInstance().getAnimation("ulti1_g");
+            ultiLowBack = CacheDataLoader.getInstance().getAnimation("ulti1_g");
+            ultiLowBack.flipAllImage();
+            ultiLow.setIsRepeated(false);
+            ultiLowBack.setIsRepeated(false);
+            
+            
+            ultiHigh = CacheDataLoader.getInstance().getAnimation("ulti2_g");
+            ultiHighBack = CacheDataLoader.getInstance().getAnimation("ulti2_g");
+            ultiHighBack.flipAllImage();
+            ultiHigh.setIsRepeated(false);
+            ultiHighBack.setIsRepeated(false);
+            
+            skill1 = CacheDataLoader.getInstance().getAnimation("skill1_g");
+            skill1Back = CacheDataLoader.getInstance().getAnimation("skill1_g");
             skill1Back.flipAllImage();
             skill1.setIsRepeated(false);
             skill1Back.setIsRepeated(false);
             
-            skill2 = CacheDataLoader.getInstance().getAnimation("skill2");
-            skill2Back = CacheDataLoader.getInstance().getAnimation("skill2");
+            skill2 = CacheDataLoader.getInstance().getAnimation("skill2_g");
+            skill2Back = CacheDataLoader.getInstance().getAnimation("skill2_g");
             skill2Back.flipAllImage();
             skill2.setIsRepeated(false);
             skill2Back.setIsRepeated(false);
             
-            skill3 = CacheDataLoader.getInstance().getAnimation("skill3");
-            skill3Back = CacheDataLoader.getInstance().getAnimation("skill3");
+            skill3 = CacheDataLoader.getInstance().getAnimation("skill3_g");
+            skill3Back = CacheDataLoader.getInstance().getAnimation("skill3_g");
             skill3Back.flipAllImage();
             skill3.setIsRepeated(false);
             skill3Back.setIsRepeated(false);
             
-            skill4 = CacheDataLoader.getInstance().getAnimation("skill4");
-            skill4Back = CacheDataLoader.getInstance().getAnimation("skill4");
+            skill4 = CacheDataLoader.getInstance().getAnimation("skill4_g");
+            skill4Back = CacheDataLoader.getInstance().getAnimation("skill4_g");
             skill4Back.flipAllImage();
             skill4.setIsRepeated(false);
             skill4Back.setIsRepeated(false);
+            
+            def = CacheDataLoader.getInstance().getAnimation("def_g");
+            defBack = CacheDataLoader.getInstance().getAnimation("def_g");
+            defBack.flipAllImage();
         }
     }
 
@@ -412,16 +433,11 @@ public class Megaman extends Human {
         // TODO Auto-generated method stub
         Rectangle rect = getBoundForCollisionWithMap();
         
-        if(getIsDicking()){
+        if(true){
             rect.x = (int) getPosX() - 22;
             rect.y = (int) getPosY() - 20;
             rect.width = 44;
             rect.height = 65;
-        }else{
-            rect.x = (int) getPosX() - 22;
-            rect.y = (int) getPosY() - 40;
-            rect.width = 44;
-            rect.height = 80;
         }
         
         return rect;
@@ -431,8 +447,8 @@ public class Megaman extends Human {
     public void draw(Graphics2D g2) {
         
         switch(getState()){
-        
-            case ALIVE:
+        	case NOBEHURT:
+        	case ALIVE:
             
                 if(getState() == FREEZE && (System.nanoTime()/10000000)%2!=1)
                 {
@@ -472,22 +488,17 @@ public class Megaman extends Human {
                         }
 
                     }
-                    else if(getIsDicking()){
-
-                        if(getDirection() == RIGHT_DIR){
-                            dickForwardAnim.Update(System.nanoTime());
-                            dickForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), 
-                                    (int) getPosY() - (int) getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height/2 - dickForwardAnim.getCurrentImage().getHeight()/2),
-                                    1,g2);
-                        }else{
-                            dickBackAnim.Update(System.nanoTime());
-                            dickBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), 
-                                    (int) getPosY() - (int) getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height/2 - dickBackAnim.getCurrentImage().getHeight()/2),
-                                    1,g2);
-                        }
-
-                    }else{
-                    	if(isDash()) {
+                    else {
+                    	if(isDef==true) {
+                    		if (getDirection()==LEFT_DIR) {
+                    			defBack.Update(System.nanoTime());
+                    			defBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 5,6,g2);
+                    		} else if (getDirection()==RIGHT_DIR) {
+                    			def.Update(System.nanoTime());
+                    			def.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 5,6,g2);
+                        	}
+                    	}
+                    	else if(isDash()) {
                     		if(getDirection()==LEFT_DIR) {
                             	dashBackAnim.Update(System.nanoTime());
                             	dashBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), 5,6,g2);
@@ -707,7 +718,7 @@ public class Megaman extends Human {
     @Override
     public void jump() {
     	
-	        if(!getIsJumping()){
+	        if(!getIsJumping()&&freeze()==false){
 	            setIsJumping(true);
 	            setSpeedY(-5.0f);           
 	            flyBackAnim.reset();
@@ -738,20 +749,11 @@ public class Megaman extends Human {
     	
     }
 
-    @Override
-    public void dick() {
-        if(!getIsJumping())
-            setIsDicking(true);
-    }
+    
+    
 
-    @Override
-    public void standUp() {
-        setIsDicking(false);
-        idleForwardAnim.reset();
-        idleBackAnim.reset();
-        dickForwardAnim.reset();
-        dickBackAnim.reset();
-    }
+    
+    
 
     @Override
     public void stopRun() {
@@ -766,6 +768,7 @@ public class Megaman extends Human {
     
     public void cast() {
     	if(freeze()==false) {
+    		stopRun();
 	    	if(isCastingLow==false&&isCastingHigh==false) {
 	    		castLow.unIgnoreFrame(0);
 	    		castLowBack.unIgnoreFrame(0);
@@ -825,7 +828,7 @@ public class Megaman extends Human {
     @Override
     public void attack() {
     	
-        if(!isShooting && !getIsDicking() && !isMeleeAttack){
+        if(!isShooting && !isMeleeAttack && freeze()==false){
             
             shooting1.play();
             
@@ -866,6 +869,7 @@ public class Megaman extends Human {
     	boolean bleed=false;
     	
     	if(freeze()==false) {
+    		stopRun();
 	    	if (isMeleeAttack==false) {
 	    		punchSound.play();
 	    	
@@ -892,14 +896,18 @@ public class Megaman extends Human {
     		//meleeAttackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(), g2);
     		if (enemy.getPosX()-getPosX()<range && enemy.getPosY()-getPosY()<70 && enemy.getPosY()-getPosY()>-70 &&enemy.getPosX()-getPosX()>=0) 
     			{
-    				enemy.beHurt(dmg,bleed);
+    				
+    				boolean denied = enemy.beHurt(dmg,bleed);
+    				if(denied == true) manaIncrease(10);
     				if(bounce==true) enemy.bounceBack(RIGHT_DIR);
     			}
     	}
     	if (getDirection()==LEFT_DIR) {
     		if (enemy.getPosX()-getPosX()>-range && enemy.getPosY()-getPosY()<70 && enemy.getPosY()-getPosY()>-70 &&enemy.getPosX()-getPosX()<=0) 
     			{
-    				enemy.beHurt(dmg,bleed);
+    				
+    				boolean denied = enemy.beHurt(dmg,bleed);
+    				if(denied == true) manaIncrease(10);
     				if(bounce==true) enemy.bounceBack(LEFT_DIR);
     			}
     	}
@@ -915,11 +923,19 @@ public class Megaman extends Human {
     				}
     }
     public boolean freeze() {
+    	
     	if(		isFreeze==true||
     			isCastingLow==true||
     			isCastingHigh==true||
     			isUltiLow==true||
-    			isUltiHigh==true
+    			isUltiHigh==true||
+    			isShooting == true||
+        		isMeleeAttack==true||
+        		isDef == true||
+        		megamanState.get("skill1") == true ||
+        		megamanState.get("skill2") == true ||
+        		megamanState.get("skill3") == true ||
+        		megamanState.get("skill4") == true 
     			)
     		return true;
     	else return false;
@@ -932,7 +948,8 @@ public class Megaman extends Human {
     }
     public void skill1(Megaman enemy) {
     	//skill ban ra con rong nuoc
-    	if(megamanState.get("skill1")==false)
+    	if(megamanState.get("skill1")==false&&freeze()==false&&manaDecrease(50)) {
+    		stopRun();
     		megamanState.put("skill1", true);
     		startTime.put("skill1", System.nanoTime());
     		skill1.reset();
@@ -946,12 +963,13 @@ public class Megaman extends Human {
     		skillObject1.setState(ParticularObject.ALIVE);
     		skillObject1.setDirection(getDirection());
             getGameWorld().bulletManager.addObject(skillObject1);
-            
+    	}
     }
     
     public void skill3(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill3")==false)
+    	if(megamanState.get("skill3")==false&&freeze()==false&&manaDecrease(50)) {
+    		stopRun();
     		megamanState.put("skill3", true);
     		startTime.put("skill3", System.nanoTime());
     		skill3.reset();
@@ -961,12 +979,13 @@ public class Megaman extends Human {
     		skillObject3.setState(ParticularObject.ALIVE);
     		skillObject3.setDirection(getDirection());
             getGameWorld().bulletManager.addObject(skillObject3);
-    	
+    	}
     }
     
     public void skill2(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill2")==false)
+    	if(megamanState.get("skill2")==false&&freeze()==false&&manaDecrease(50)) {
+    		stopRun();
     		megamanState.put("skill2", true);
     		startTime.put("skill2", System.nanoTime());
     		skill2.reset();
@@ -976,12 +995,13 @@ public class Megaman extends Human {
     		skillObject2.setState(ParticularObject.ALIVE);
     		skillObject2.setDirection(getDirection());
             getGameWorld().bulletManager.addObject(skillObject2);
-    	
+    	}
     }
     
     public void skill4(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill4")==false)
+    	if(megamanState.get("skill4")==false&&freeze()==false&&manaDecrease(50)) {
+    		stopRun();
     		megamanState.put("skill4", true);
     		startTime.put("skill4", System.nanoTime());
     		skill4.reset();
@@ -991,9 +1011,45 @@ public class Megaman extends Human {
     		skillObject4.setState(ParticularObject.ALIVE);
     		skillObject4.setDirection(getDirection());
             getGameWorld().bulletManager.addObject(skillObject4);
+    	}
+    }
+    
+    public void def() {
+    	if(freeze()==false) {
+    		isDef=true;
+    		setState(NOBEHURT);
+    		stopRun();
+    	}
+    }
+    public void unDef() {
+    	isDef=false;
+    	setState(ALIVE);
     	
     }
-    public void drawBoundForCollisionWithSkill(Graphics2D g2){
+    
+    private void manaIncrease(int m) {
+    	
+    	if(mana+m>=100 ) mana =100;
+    	else mana = mana +m;
+    }
+    
+    private boolean manaDecrease(int m) {
+    	if(mana >= m) {
+    		mana=mana-m;
+    		return true;
+    	}
+    	else return false;
+    }
+    
+    public int getMana() {
+		return mana;
+	}
+
+	public void setMana(int mana) {
+		this.mana = mana;
+	}
+
+	public void drawBoundForCollisionWithSkill(Graphics2D g2){
         Rectangle rect = getBoundForCollisionWithEnemy();
         g2.setColor(Color.RED);
         

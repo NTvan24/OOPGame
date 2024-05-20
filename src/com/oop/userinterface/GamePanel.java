@@ -60,15 +60,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
         //gameState = new MenuState(this);
     	gameWorld = new GameWorld();
-    	skillMenu = new PickSkillMenu();
+    	skillMenu = new PickSkillMenu(this);
     	
         if(state== GAMEPLAY) gameWorld.resetMap();
         inputManager = new InputManager(gameWorld,this,skillMenu);
         //inputManager = new InputManager();
 
     }
+    
+    public InputManager getInputManager() {
+		return inputManager;
+	}
 
-    public int getMapCurrent() {
+	public void setInputManager(InputManager inputManager) {
+		this.inputManager = inputManager;
+	}
+
+	public int getMapCurrent() {
 		return mapCurrent;
 	}
 
@@ -187,6 +195,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
 	public void setMenuCurrent(int menuCurrent) {
 		this.menuCurrent = menuCurrent;
+	}
+	
+	public GameWorld getGameWorld() {
+		return gameWorld;
+	}
+
+	public void setGameWorld(GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
 	}
 
 	@Override

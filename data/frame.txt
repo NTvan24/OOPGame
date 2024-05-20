@@ -1,5 +1,40 @@
 
-313
+411
+
+gethit1_g
+image data/gethit_g.png
+x 239
+y 342
+w 46
+h 85
+
+gethit2_g
+image data/gethit_g.png
+x 319
+y 368
+w 86
+h 52
+
+gethit3_g
+image data/gethit_g.png
+x 438
+y 347
+w 119
+h 36
+
+def
+image data/def.png
+x 577
+y 339
+w 62
+h 87
+
+def_g
+image data/gethit_g.png
+x 577
+y 339
+w 62
+h 87
 
 shot_1
 image data/shot.png
@@ -43,6 +78,20 @@ y 136
 w 34
 h 35
 
+shot_1_g
+image data/shot_g.png
+x 75
+y 16
+w 50
+h 94
+
+shot_2_g
+image data/shot_g.png
+x 160
+y 20
+w 59
+h 89
+
 skill4_1
 image data/skill4.png
 x 60
@@ -73,6 +122,41 @@ h 88
 
 skill4_5
 image data/skill4.png
+x 225
+y 341
+w 119
+h 87
+
+skill4_1_g
+image data/skill4_g.png
+x 60
+y 125
+w 99
+h 97
+
+skill4_2_g
+image data/skill4_g.png
+x 164
+y 117
+w 135
+h 102
+
+skill4_3_g
+image data/skill4_g.png
+x 297
+y 122
+w 129
+h 96
+
+skill4_4_g
+image data/skill4_g.png
+x 41
+y 341
+w 124
+h 88
+
+skill4_5_g
+image data/skill4_g.png
 x 225
 y 341
 w 119
@@ -115,6 +199,48 @@ h 85
 
 skill3_6
 image data/skill3.png
+x 343
+y 344
+w 94
+h 87
+
+skill3_1_g
+image data/skill3_g.png
+x 77
+y 134
+w 84
+h 84
+
+skill3_2_g
+image data/skill3_g.png
+x 172
+y 136
+w 99
+h 82
+
+skill3_3_g
+image data/skill3_g.png
+x 279
+y 112
+w 124
+h 105
+
+skill3_4_g
+image data/skill3_g.png
+x 0
+y 313
+w 211
+h 115
+
+skill3_5_g
+image data/skill3_g.png
+x 224
+y 346
+w 113
+h 85
+
+skill3_6_g
+image data/skill3_g.png
 x 343
 y 344
 w 94
@@ -204,6 +330,90 @@ y 846
 w 296
 h 83
 
+skill1_1_g
+image data/skill1_g.png
+x 124
+y 286
+w 47
+h 108
+
+skill1_2_g
+image data/skill1_g.png
+x 205
+y 295
+w 55
+h 100
+
+skill1_3_g
+image data/skill1_g.png
+x 308
+y 295
+w 189
+h 102
+
+skill1_4_g
+image data/skill1_g.png
+x 523
+y 295
+w 234
+h 107
+
+skill1_5_g
+image data/skill1_g.png
+x 835
+y 282
+w 251
+h 118
+
+skill1_6_g
+image data/skill1_g.png
+x 1144
+y 278
+w 247
+h 123
+
+skill1_7_g
+image data/skill1_g.png
+x 5
+y 537
+w 321
+h 140
+
+skill1_8_g
+image data/skill1_g.png
+x 392
+y 560
+w 378
+h 119
+
+skill1_9_g
+image data/skill1_g.png
+x 779
+y 567
+w 380
+h 109
+
+skill1_10_g
+image data/skill1_g.png
+x 25
+y 840
+w 377
+h 90
+
+skill1_11_g
+image data/skill1_g.png
+x 478
+y 844
+w 355
+h 86
+
+skill1_12_g
+image data/skill1_g.png
+x 930
+y 846
+w 296
+h 83
+
 skill2_1
 image data/skill2.png
 x 158
@@ -234,18 +444,73 @@ h 131
 
 skill2_5
 image data/skill2.png
-x 63
-y 328
-w 43
-h 116
+x 117
+y 319
+w 35
+h 125
 
 skill2_6
 image data/skill2.png
-x 115
-y 349
-w 54
-h 94
+x 162
+y 324
+w 44
+h 117
 
+skill2_7
+image data/skill2.png
+x 214
+y 345
+w 54
+h 95
+
+skill2_1_g
+image data/skill2_g.png
+x 158
+y 180
+w 81
+h 85
+
+skill2_2_g
+image data/skill2_g.png
+x 272
+y 164
+w 65
+h 100
+
+skill2_3_g
+image data/skill2_g.png
+x 344
+y 130
+w 54
+h 136
+
+skill2_4_g
+image data/skill2_g.png
+x 409
+y 133
+w 46
+h 131
+
+skill2_5_g
+image data/skill2_g.png
+x 117
+y 319
+w 35
+h 125
+
+skill2_6_g
+image data/skill2_g.png
+x 162
+y 324
+w 44
+h 117
+
+skill2_7_g
+image data/skill2_g.png
+x 214
+y 345
+w 54
+h 95
 
 gethit1
 image data/gethit.png
@@ -471,6 +736,209 @@ y 796
 w 127
 h 87
 
+cast1_g
+image data/cast_skill_g.png
+x 85
+y 82
+w 36
+h 83
+
+cast2_g
+image data/cast_skill_g.png
+x 150
+y 82
+w 39
+h 83
+
+cast3_g
+image data/cast_skill_g.png
+x 224
+y 81
+w 36
+h 83
+
+cast4_g
+image data/cast_skill_g.png
+x 303
+y 81
+w 44
+h 83
+
+cast5_g
+image data/cast_skill_g.png
+x 380
+y 82
+w 38
+h 83
+
+cast6_g
+image data/cast_skill_g.png
+x 444
+y 81
+w 37
+h 84
+
+cast7_g
+image data/cast_skill_g.png
+x 512
+y 82
+w 41
+h 83
+
+cast8_g
+image data/cast_skill_g.png
+x 598
+y 82
+w 39
+h 83
+
+cast9_g
+image data/cast_skill_g.png
+x 671
+y 82
+w 39
+h 83
+
+skill1_g
+image data/cast_skill_g.png
+x 17
+y 197
+w 85
+h 79
+
+skill2_g
+image data/cast_skill_g.png
+x 110
+y 195
+w 101
+h 81
+
+skill3_g
+image data/cast_skill_g.png
+x 220
+y 197
+w 118
+h 79
+
+skill4_g
+image data/cast_skill_g.png
+x 337
+y 197
+w 106
+h 79
+
+skill5_g
+image data/cast_skill_g.png
+x 457
+y 196
+w 81
+h 80
+
+cast10_g
+image data/cast_skill_g.png
+x 9
+y 426
+w 42
+h 84
+
+cast11_g
+image data/cast_skill_g.png
+x 80
+y 426
+w 47
+h 84
+
+cast12_g
+image data/cast_skill_g.png
+x 160
+y 427
+w 42
+h 83
+
+cast13_g
+image data/cast_skill_g.png
+x 236
+y 426
+w 42
+h 84
+
+cast14_g
+image data/cast_skill_g.png
+x 300
+y 427
+w 42
+h 83
+
+cast15_g
+image data/cast_skill_g.png
+x 375
+y 426
+w 42
+h 84
+
+cast16_g
+image data/cast_skill_g.png
+x 448
+y 427
+w 47
+h 83
+
+cast17_g
+image data/cast_skill_g.png
+x 523
+y 426
+w 47
+h 84
+
+skill6_g
+image data/cast_skill_g.png
+x 41
+y 621
+w 155
+h 80
+
+skill7_g
+image data/cast_skill_g.png
+x 296
+y 606
+w 171
+h 93
+
+skill8_g
+image data/cast_skill_g.png
+x 595
+y 572
+w 237
+h 127
+
+skill9_g
+image data/cast_skill_g.png
+x 32
+y 792
+w 221
+h 89
+
+skill10_g
+image data/cast_skill_g.png
+x 284
+y 782
+w 201
+h 89
+
+skill11_g
+image data/cast_skill_g.png
+x 505
+y 788
+w 225
+h 94
+
+skill12_g
+image data/cast_skill_g.png
+x 729
+y 796
+w 127
+h 87
+
 dash1
 image data/dash.png
 x 280
@@ -485,8 +953,29 @@ y 433
 w 119
 h 86
 
+dash1_g
+image data/dash_g.png
+x 280
+y 441
+w 89
+h 78
+
+dash2_g
+image data/dash_g.png
+x 548
+y 433
+w 119
+h 86
+
 s_idle
 image data/stickman3.png
+x 133
+y 721
+w 293
+h 545
+
+s_idle_g
+image data/stickman3_g.png
 x 133
 y 721
 w 293
@@ -617,6 +1106,188 @@ x 2201
 y 3293
 w 299
 h 599
+
+s_kick1_g
+image data/stickman3_g.png
+x 431
+y 693
+w 331
+h 571
+
+s_kick2_g
+image data/stickman3_g.png
+x 775
+y 669
+w 305
+h 595
+
+s_kick3_g
+image data/stickman3_g.png
+x 1173
+y 655
+w 259
+h 609
+
+s_kick4_g
+image data/stickman3_g.png
+x 1509
+y 641
+w 307
+h 623
+
+s_kick5_g
+image data/stickman3_g.png
+x 1925
+y 673
+w 543
+h 593
+
+s_kick6_g
+image data/stickman3_g.png
+x 77
+y 1405
+w 511
+h 581
+
+s_punch1_g
+image data/stickman3_g.png
+x 713
+y 1393
+w 289
+h 597
+
+s_punch2_g
+image data/stickman3_g.png
+x 1373
+y 1381
+w 343
+h 609
+
+s_punch3_g
+image data/stickman3_g.png
+x 1761
+y 1387
+w 363
+h 603
+
+s_punch4_g
+image data/stickman3_g.png
+x 19
+y 2207
+w 595
+h 633
+
+s_punch5_g
+image data/stickman3_g.png
+x 631
+y 2207
+w 569
+h 635
+
+s_punch6_g
+image data/stickman3_g.png
+x 1223
+y 2237
+w 543
+h 605
+
+s_punch7_g
+image data/stickman3_g.png
+x 1799
+y 2187
+w 345
+h 655
+
+s_jumpkick1_g
+image data/stickman3_g.png
+x 2181
+y 2145
+w 451
+h 695
+
+s_jumpkick2_g
+image data/stickman3_g.png
+x 153
+y 3015
+w 759
+h 883
+
+s_jumpkick3_g
+image data/stickman3_g.png
+x 929
+y 2985
+w 663
+h 911
+
+s_jumpkick4_g
+image data/stickman3_g.png
+x 1729
+y 3155
+w 377
+h 737
+
+s_jumpkick5_g
+image data/stickman3_g.png
+x 2201
+y 3293
+w 299
+h 599
+
+s_run1_g
+image data/stickman1_g.png
+x 4
+y 126
+w 48
+h 94
+
+s_run2_g
+image data/stickman1_g.png
+x 60
+y 126
+w 43
+h 92
+
+s_run3_g
+image data/stickman1_g.png
+x 115
+y 126
+w 44
+h 91
+
+s_run4_g
+image data/stickman1_g.png
+x 168
+y 126
+w 54
+h 92
+
+s_run5_g
+image data/stickman1_g.png
+x 225
+y 126
+w 63
+h 90
+
+s_run6_g
+image data/stickman1_g.png
+x 291
+y 126
+w 53
+h 92
+
+s_run7_g
+image data/stickman1_g.png
+x 346
+y 126
+w 44
+h 90
+
+s_run8_g
+image data/stickman1_g.png
+x 395
+y 126
+w 46
+h 91
 
 s_run1
 image data/stickman1.png
@@ -1105,12 +1776,12 @@ y 489
 w 48
 h 86
 
-flyingup1_red
-image data/megasprite_red.png
-x 2
-y 181
-w 62
-h 95
+flyingup1_g
+image data/jump_g.png
+x 195
+y 489
+w 48
+h 86
 
 flyingup2
 image data/jump.png
@@ -1119,12 +1790,12 @@ y 390
 w 38
 h 121
 
-flyingup2_red
-image data/megasprite_red.png
-x 76
-y 170
-w 42
-h 107
+flyingup2_g
+image data/jump_g.png
+x 267
+y 390
+w 38
+h 121
 
 flyingup3
 image data/jump.png
@@ -1133,12 +1804,12 @@ y 305
 w 48
 h 118
 
-flyingup3_red
-image data/megasprite_red.png
-x 127
-y 160
-w 52
-h 117
+flyingup3_g
+image data/jump_g.png
+x 329
+y 305
+w 48
+h 118
 
 flyingup4
 image data/jump.png
@@ -1147,12 +1818,12 @@ y 231
 w 47
 h 96
 
-flyingup4_red
-image data/megasprite_red.png
-x 185
-y 171
-w 60
-h 107
+flyingup4_g
+image data/jump_g.png
+x 408
+y 231
+w 47
+h 96
 
 flyingup5
 image data/jump.png
@@ -1161,12 +1832,12 @@ y 278
 w 44
 h 121
 
-flyingup5_red
-image data/megasprite_red.png
-x 248
-y 169
-w 70
-h 107
+flyingup5_g
+image data/jump_g.png
+x 479
+y 278
+w 44
+h 121
 
 flyingup6
 image data/jump.png
@@ -1175,8 +1846,22 @@ y 388
 w 45
 h 118
 
+flyingup6_g
+image data/jump_g.png
+x 561
+y 388
+w 45
+h 118
+
 flyingup7
 image data/jump.png
+x 661
+y 489
+w 42
+h 86
+
+flyingup7_g
+image data/jump_g.png
 x 661
 y 489
 w 42

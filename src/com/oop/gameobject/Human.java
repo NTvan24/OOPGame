@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 public abstract class Human extends ParticularObject{
 	private boolean isDash=false;
     private boolean isJumping;
-    private boolean isDicking;
+    
     private boolean isBounceBack=false;
     private long startBounceBack;
     
@@ -29,9 +29,9 @@ public abstract class Human extends ParticularObject{
     
     public abstract void jump();
     
-    public abstract void dick();
     
-    public abstract void standUp();
+    
+    
     
     public abstract void stopRun();
 
@@ -51,13 +51,7 @@ public abstract class Human extends ParticularObject{
         this.isJumping = isJumping;
     }
 
-    public boolean getIsDicking() {
-        return isDicking;
-    }
-
-    public void setIsDicking(boolean isDicking) {
-        this.isDicking = isDicking;
-    }
+ 
     
     
     public boolean isBounceBack() {
@@ -84,7 +78,7 @@ public abstract class Human extends ParticularObject{
         
         super.Update();
         
-        if(getState() == ALIVE || getState() == FREEZE|| getState() == BEHURT){
+        if(getState() == ALIVE || getState() == FREEZE|| getState() == BEHURT || getState() == NOBEHURT){
         	
         	
             if(!isLanding){
