@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import com.oop.gameobject.Megaman;
+import com.oop.gameobject.ParticularObject;
 import com.oop.gameobject.Skill;
 
 
@@ -207,6 +208,19 @@ public class Animation {
             g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
         
         Rectangle rect = new Rectangle(x - image.getWidth()/2/ratio*ratio2 ,y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2);
+        skill.setRect(rect);
+        
+        skill.drawBoundForCollisionWithMap(g2);
+    }
+    public void draw(int x, int y,int ratio,int ratio2,Graphics2D g2, Skill skill, boolean skill5){
+        
+        BufferedImage image = getCurrentImage();
+        g2.drawImage(image, x - image.getWidth()/2/ratio*ratio2, y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2, null);
+        //g2.drawImage(image, x - image.getWidth()/2, y - image.getHeight()/2, null);
+        if(drawRectFrame)
+            g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
+        
+        Rectangle rect = new Rectangle(x - image.getWidth()/2/ratio*ratio2 ,y - image.getHeight()/2/ratio*ratio2+100, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2-100);
         skill.setRect(rect);
         
         skill.drawBoundForCollisionWithMap(g2);

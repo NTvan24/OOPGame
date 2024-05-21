@@ -1,5 +1,68 @@
 
-411
+420
+
+skill5_1
+image data/skill5.png
+x 172
+y 320
+w 50
+h 95
+
+skill5_2
+image data/skill5.png
+x 284
+y 241
+w 99
+h 177
+
+skill5_3
+image data/skill5.png
+x 418
+y 240
+w 108
+h 178
+
+skill5_4
+image data/skill5.png
+x 571
+y 240
+w 104
+h 176
+
+skill5_5
+image data/skill5.png
+x 220
+y 468
+w 114
+h 177
+
+skill5_6
+image data/skill5.png
+x 437
+y 469
+w 115
+h 174
+
+skill5_7
+image data/skill5.png
+x 51
+y 724
+w 110
+h 176
+
+skill5_8
+image data/skill5.png
+x 385
+y 725
+w 499
+h 175
+
+skill4_5
+image data/skill4.png
+x 225
+y 341
+w 119
+h 87
 
 gethit1_g
 image data/gethit_g.png

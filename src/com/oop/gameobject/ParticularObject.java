@@ -23,6 +23,7 @@ public abstract class ParticularObject extends GameObject {
     public static final int NOBEHURT = 5; //bat tu tam thoi sau khi hoisinh
     public static final int FREEZE = 4;
     private int state = ALIVE;
+    public int mana=1000;
     
     private int width;
     private int height;
@@ -199,7 +200,10 @@ public abstract class ParticularObject extends GameObject {
     	//System.out.println(state);
     	if (state!=NOBEHURT) {
         setBlood(getBlood() - damgeEat);
+        
+        
         state = BEHURT;
+        manaIncrease(2);
         if (bleed == true) 
         	{
         		System.out.println("set bleed");
@@ -212,7 +216,29 @@ public abstract class ParticularObject extends GameObject {
     	}
     	return false;
     }
-    
+    public boolean beHurt(int damgeEat, boolean bleed,boolean skill,int dmgdef){
+    	//System.out.println(state);
+    	if (state!=NOBEHURT) {
+        setBlood(getBlood() - damgeEat);
+        
+        state = BEHURT;
+        setSpeedX(0);
+        
+        if (bleed == true) 
+        	{
+        		System.out.println("set bleed");
+        		bleeding=true;
+        		numberBleeding = 5 ;
+        		startTimeBleeding = System.nanoTime();
+        	}
+        hurtingCallback();
+        return true;
+    	}
+    	else {
+    		setBlood(getBlood() - dmgdef);
+    		return false;
+    	}
+    }
     
     
     public void pushBack(int damage, int push) {
@@ -250,7 +276,20 @@ public abstract class ParticularObject extends GameObject {
                 if(numberBleeding ==0 ) bleeding=false;
                 
                 break;
+            case FREEZE:
+            	
+            	if(behurtForwardAnim.isLastFrame()){
+                    behurtForwardAnim.reset();
+                    
+                    if(getBlood() == 0)
+                        state = FEY;
+                    
+                }
+                if(System.nanoTime() - startTimeFreeze > 750*1000000)
+                    state = ALIVE;
                 
+                break;     
+                    
             case BEHURT:
                 if(behurtBackAnim == null){
                     state = FREEZE;
@@ -284,20 +323,7 @@ public abstract class ParticularObject extends GameObject {
                 
                 break;
                 
-            case FREEZE:
-            	
-            	if(behurtForwardAnim.isLastFrame()){
-                    behurtForwardAnim.reset();
-                    
-                    if(getBlood() == 0)
-                        state = FEY;
-                    
-                }
-                if(System.nanoTime() - startTimeFreeze > 750*1000000)
-                    state = ALIVE;
-                
-                
-                break;
+            
                 
         }
         
@@ -316,7 +342,19 @@ public abstract class ParticularObject extends GameObject {
         g2.drawRect(rect.x  , rect.y  , rect.width, rect.height);
         g2.drawRect(rect.x - (int) getGameWorld().camera.getPosX(), rect.y - (int) getGameWorld().camera.getPosY(), rect.width, rect.height);
     }
-
+    public void manaIncrease(int m) {
+    	
+    	if(mana+m>=100 ) mana =100;
+    	else mana = mana +m;
+    }
+    
+    public boolean manaDecrease(int m) {
+    	if(mana >= m) {
+    		mana=mana-m;
+    		return true;
+    	}
+    	else return false;
+    }
     public abstract Rectangle getBoundForCollisionWithEnemy();
 
     public abstract void draw(Graphics2D g2);

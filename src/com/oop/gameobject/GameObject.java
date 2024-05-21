@@ -6,7 +6,7 @@ public abstract class GameObject {
 	
 	private float posX;
 	private float posY;
-	private GameWorld gameWorld;
+	protected GameWorld gameWorld;
 	public GameObject(float posX, float posY, GameWorld gameWorld) {
 		super();
 		this.posX = posX;

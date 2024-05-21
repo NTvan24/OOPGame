@@ -72,15 +72,9 @@ public class GameWorld {
     
 	public AudioClip bgMusic;
 	
+	@SuppressWarnings("deprecation")
 	public GameWorld() {
-		/*
-		texts1[0] = "We are heros, and our mission is protecting our Home\nEarth....";
-        texts1[1] = "There was a Monster from University on Earth in 10 years\n"
-                + "and we lived in the scare in that 10 years....";
-        texts1[2] = "Now is the time for us, kill it and get freedom!....";
-        texts1[3] = "      LET'S GO!.....";
-        textTutorial = texts1[0];
-		*/
+		
 		
 		player1Point=0;
 	    player2Point=0;
@@ -110,12 +104,14 @@ public class GameWorld {
         resumeImage = pauseTitle.getSubimage(346, 71, 144, 19);
         
         bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
+        
 	}
 	
 	public void newGame()
 	{
 		player1Point=0;
 	    player2Point=0;
+	    bgMusic.play();
 	}
 	
 	public void resetMap() {
@@ -137,7 +133,7 @@ public class GameWorld {
 		//bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         
         physicalMap = new PhysicalMap(0, 0, this,mapIndex);
-        
+        bgMusic.play();
 	}
 	
 	

@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     
     private int menuCurrent=0;
     private int mapCurrent=1;
-    private int state=PICKSKILL;
+    private int state=MENU;
     public boolean isRunning = true;
 
     public GamePanel(){

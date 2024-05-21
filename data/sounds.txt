@@ -1,4 +1,4 @@
-7
+8
 
 bluefireshooting data/bluefireshooting.wav
 redeyeshooting data/redeyeshooting.wav
@@ -7,3 +7,4 @@ robotRshooting data/robotRshooting.wav
 megamanhurt data/megamanhurt.wav
 punch data/punch.wav
 getpunch data/getpunch.wav
+shuriken data/shuriken.wav

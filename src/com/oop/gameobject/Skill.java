@@ -5,10 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Skill extends ParticularObject {
-
-    public Skill( int damage, GameWorld gameWorld) {
+	int dmgdef;
+    public Skill( int damage,int dmgdef, GameWorld gameWorld) {
             super(0, 0, 1, 1, 1, 1, gameWorld);
             setDamage(damage);
+            this.dmgdef=dmgdef;
     }
     
     public void setRect(Rectangle rect) {
@@ -17,21 +18,27 @@ public class Skill extends ParticularObject {
     	setWidth(rect.width);
     	setHeight(rect.height);
     	
-    	System.out.println(getTeamType()+"----");
+    	//System.out.println(getTeamType()+"----");
     }
     
     public Rectangle getBoundForCollisionWithEnemy() {
         // TODO Auto-generated method stub
         return getBoundForCollisionWithMap();
     }
+    public void reset() {
+    	setPosX(0);
+    	setPosY(0);
+    	setWidth(1);
+    	setHeight(1);
+    }
     public void Update(){
         //super.Update();
         
         
         ParticularObject object = getGameWorld().particularObjectManager.getCollisionWidthEnemyObject(this);
-        if(object!=null && object.getState() == ALIVE){
+        if(object!=null && (object.getState() == ALIVE || object.getState() == NOBEHURT || object.getState() == BEHURT)){
             setState(DEATH);
-            object.beHurt(getDamage(),false);
+            object.beHurt(getDamage(),false,true,dmgdef);
             Human human = (Human) object;
             
             if (getDirection()==RIGHT_DIR)
