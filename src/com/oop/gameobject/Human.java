@@ -64,7 +64,7 @@ public abstract class Human extends ParticularObject{
 
 	public void bounceBack(int dir)
     {
-    	System.out.println("bounceBack");
+    	
     	isBounceBack=true;
     	isJumping=true;
     	startBounceBack=System.nanoTime();

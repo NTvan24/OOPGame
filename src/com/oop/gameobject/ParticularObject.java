@@ -23,7 +23,7 @@ public abstract class ParticularObject extends GameObject {
     public static final int NOBEHURT = 5; //bat tu tam thoi sau khi hoisinh
     public static final int FREEZE = 4;
     private int state = ALIVE;
-    public int mana=1000;
+    public int mana=0;
     
     private int width;
     private int height;
@@ -197,7 +197,7 @@ public abstract class ParticularObject extends GameObject {
     }
 
     public boolean beHurt(int damgeEat, boolean bleed){
-    	//System.out.println(state);
+    	
     	if (state!=NOBEHURT) {
         setBlood(getBlood() - damgeEat);
         
@@ -206,7 +206,7 @@ public abstract class ParticularObject extends GameObject {
         manaIncrease(2);
         if (bleed == true) 
         	{
-        		System.out.println("set bleed");
+        		
         		bleeding=true;
         		numberBleeding = 5 ;
         		startTimeBleeding = System.nanoTime();
@@ -217,7 +217,7 @@ public abstract class ParticularObject extends GameObject {
     	return false;
     }
     public boolean beHurt(int damgeEat, boolean bleed,boolean skill,int dmgdef){
-    	//System.out.println(state);
+    	
     	if (state!=NOBEHURT) {
         setBlood(getBlood() - damgeEat);
         
@@ -226,7 +226,7 @@ public abstract class ParticularObject extends GameObject {
         
         if (bleed == true) 
         	{
-        		System.out.println("set bleed");
+        		
         		bleeding=true;
         		numberBleeding = 5 ;
         		startTimeBleeding = System.nanoTime();
@@ -247,7 +247,7 @@ public abstract class ParticularObject extends GameObject {
     
     @Override
     public void Update(){
-    	//System.out.println(state);
+    	
         switch(state){
         	case NOBEHURT:
             case ALIVE:
@@ -262,7 +262,7 @@ public abstract class ParticularObject extends GameObject {
                         // switch state to fey if object die
                         
                         
-                        System.out.println("eat damage.... from collision with enemy........ "+object.getDamage());
+                        
                         beHurt(object.getDamage(),false);
                     }
                     

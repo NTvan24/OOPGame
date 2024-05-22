@@ -89,7 +89,7 @@ public class ParticularObjectManager {
             }
         }
 
-        //System.out.println("Camerawidth  = "+camera.getWidth());
+       
         
     }
     

@@ -475,7 +475,7 @@ public class Megaman extends Human {
             
                 if(getState() == FREEZE && (System.nanoTime()/10000000)%2!=1)
                 {
-                    //System.out.println("Plash...");
+                    
                 }else{
                     
                     if(getIsLanding()){
@@ -573,7 +573,7 @@ public class Megaman extends Human {
                         }else{
                             if(getDirection() == RIGHT_DIR){
                             	if (isMeleeAttack) {
-                            		System.out.print("\nmeelee FORWARD");
+                            		
                             		if(meleeAttackCombo==0) {
                             		kickAttackAnim.Update(System.nanoTime());
                             		kickAttackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
@@ -601,13 +601,13 @@ public class Megaman extends Human {
                                 	if(castHigh.getCurrentFrame() == 1) castHigh.setIgnoreFrame(0);
                                 }
                                 else if (isUltiLow){
-                                	//System.out.println("isultilow");
+                                	
                                 	ultiLow.Update(System.nanoTime());
                                 	ultiLow.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 }
                                 else if (isUltiHigh)
                                 {
-                                	//System.out.println("isultihig");
+                                	
                                 	ultiHigh.Update(System.nanoTime());
                                 	ultiHigh.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 }
@@ -637,7 +637,7 @@ public class Megaman extends Human {
                             }
                             else{
                             	if (isMeleeAttack) {
-                            		System.out.print("\nmeelee BACK");
+                            		
                             		if(meleeAttackCombo==0) {
                                 		kickAttackBackAnim.Update(System.nanoTime());
                                 		kickAttackBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
@@ -665,13 +665,13 @@ public class Megaman extends Human {
                                 		castHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 		if(castHighBack.getCurrentFrame() == 1) castHighBack.setIgnoreFrame(0);
                                 }else if (isUltiLow){
-                                		//System.out.println("isultilow:"+isUltiLow);
+                                		
                                 		ultiLowBack.Update(System.nanoTime());
                                 		ultiLowBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 }
                                 else if (isUltiHigh)
                                 {
-                                		//System.out.println("isultihig:"+isUltiHigh);
+                                		
                                 		ultiHighBack.Update(System.nanoTime());
                                 		ultiHighBack.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
                                 }
@@ -981,7 +981,7 @@ public class Megaman extends Human {
     
     @Override
     public void hurtingCallback(){
-        System.out.println("Call back hurting");
+        
         hurtingSound.play();
     }
     public void skill1(Megaman enemy) {

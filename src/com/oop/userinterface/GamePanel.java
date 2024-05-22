@@ -133,11 +133,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     		g.drawImage(mapPickImage, 0, 0,GameFrame.SCREEN_WIDTH , GameFrame.SCREEN_HEIGHT, null);
     			
     		maps[mapCurrent-1].draw(g2,501,157, 276,160);
-    		//System.out.println("state=map");
+    		
     		}
     	else if(state==MENU) {
     		g.drawImage(menuImage, 0, 0,GameFrame.SCREEN_WIDTH , GameFrame.SCREEN_HEIGHT-30, null);
-    		//System.out.println("state=menu");
+    		
     		if(menuCurrent==0)
     			g.drawImage(playPickImage,331,293,360,135,null);
     		else if (menuCurrent==1)

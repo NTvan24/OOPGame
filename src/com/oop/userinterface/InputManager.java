@@ -252,7 +252,7 @@ public class InputManager {
 		switch(keyCode) {
 		case KeyEvent.VK_E:
 			//gameWorld.megaman.cast();
-			gameWorld.megaman.skill5(gameWorld.megaman2);
+			//gameWorld.megaman.skill5(gameWorld.megaman2);
 			break;
 		case KeyEvent.VK_R:
 			//gameWorld.megaman.cast();
@@ -270,7 +270,7 @@ public class InputManager {
 			
 			break;
 		case KeyEvent.VK_W:
-			//System.out.println("press up");
+			
 			if(gamePanel.getState()==GamePanel.PICKSKILL)
 				pickSkillMenu.decreaseChoose1(true);
 			break;
@@ -335,6 +335,10 @@ public class InputManager {
 					if (gameWorld.getPauseGameChoose()==0)
 						gameWorld.switchState(GameWorld.GAMEPLAY);
 					else if(gameWorld.getPauseGameChoose()==1)
+						gamePanel.setPanelState(GamePanel.MENU);
+				}
+				else if (gameWorld.state==GameWorld.PLAYER1WIN||gameWorld.state==GameWorld.PLAYER2WIN)
+				{
 						gamePanel.setPanelState(GamePanel.MENU);
 				}
 			}
@@ -502,7 +506,7 @@ public class InputManager {
 			break;
 		
 		case KeyEvent.VK_W:
-			System.out.println("press up");
+			
 			
 			break;
 		

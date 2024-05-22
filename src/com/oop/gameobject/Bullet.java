@@ -30,7 +30,7 @@ public abstract class Bullet extends ParticularObject {
             else if(object.getTeamType()==ParticularObject.ENEMY_TEAM&&shot==true) {
             	gameWorld.megaman.manaIncrease(5);
             }
-            System.out.println("Bullet set behurt for enemy");
+           
         }
         
     }

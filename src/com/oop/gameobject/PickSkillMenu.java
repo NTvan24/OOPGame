@@ -185,13 +185,13 @@ public void decreaseChoose2(boolean doc) {
 
 public void press() {
 	if(gamePanel.getInputManager().checkSkill()==true) {
-		System.out.println("00000");
+		
 		gamePanel.getGameWorld().resetMap();
 		gamePanel.getGameWorld().newGame();
 		gamePanel.setPanelState(GamePanel.GAMEPLAY);
 	}
 	else {
-		System.out.println(countSkill1);
+		
 		if (countSkill1==0) gamePanel.getInputManager().setPress1(currentChoose1,"R");
 		else if(countSkill1==1) gamePanel.getInputManager().setPress1(currentChoose1,"T");
 		else if(countSkill1==2) gamePanel.getInputManager().setPress1(currentChoose1,"Y");

@@ -20,7 +20,7 @@ public class BulletManager extends ParticularObjectManager {
                 
                 if(object.isObjectOutOfCameraView() || object.getState() == ParticularObject.DEATH){
                     particularObjects.remove(id);
-                    //System.out.println("Remove");
+                    
                 }
             }
         }

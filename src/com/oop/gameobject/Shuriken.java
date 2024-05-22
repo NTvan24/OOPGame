@@ -45,7 +45,7 @@ private Animation forwardShurikenAnim, backShurikenAnim;
             // TODO Auto-generated method stub
         
         setPosX(getPosX() + getSpeedX());
-        //System.out.print(getSpeedX());
+        
         super.Update();
         
     }

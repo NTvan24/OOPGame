@@ -18,7 +18,7 @@ public class Skill extends ParticularObject {
     	setWidth(rect.width);
     	setHeight(rect.height);
     	
-    	//System.out.println(getTeamType()+"----");
+    	
     }
     
     public Rectangle getBoundForCollisionWithEnemy() {
@@ -45,7 +45,7 @@ public class Skill extends ParticularObject {
             	human.bounceBack(RIGHT_DIR);
             else if (getDirection()==LEFT_DIR)
             	human.bounceBack(LEFT_DIR);
-            System.out.println("skill set behurt for enemy");
+            
         }
         
     }

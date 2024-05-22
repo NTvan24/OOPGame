@@ -23,6 +23,7 @@ public class GameWorld {
 	
 	public Megaman megaman,megaman2;
 	private BufferedImage bufferedImage;
+	private BufferedImage KOImage,player1win,player2win,star;
 	public PhysicalMap physicalMap;
 	public ParticularObjectManager particularObjectManager;
 	public Camera camera;
@@ -32,12 +33,13 @@ public class GameWorld {
 	public Animation forwardBulletAnim ;
 	public BackgroundMap backgroundMap;
 	private BufferedImage resumeImage,quitImage,resumePickImage,quitPickImage,pauseTitle;
-	//public static final int finalBossX = 3600;
+	
     
     public static final int PAUSEGAME = 0;
     //public static final int TUTORIAL = 1;
     public static final int GAMEPLAY = 2;
-    public static final int GAMEOVER = 3;
+    public static final int PLAYER1WIN = 6;
+    public static final int PLAYER2WIN = 7;
     public static final int GAMEWIN = 4;
     public static final int ENDGAME = 5;
     
@@ -46,7 +48,7 @@ public class GameWorld {
 	
     
     public int openIntroGameY = 0;
-    public int state = GAMEPLAY;
+    public int state = PLAYER1WIN;
     public int previousState = state;
     //public int tutorialState = INTROGAME;
     
@@ -68,14 +70,14 @@ public class GameWorld {
     private int pauseGameChoose=0;
     
     
-    private int testAni=1;
+    private int testAni=0;
     
 	public AudioClip bgMusic;
 	
 	@SuppressWarnings("deprecation")
 	public GameWorld() {
 		
-		
+		 
 		player1Point=0;
 	    player2Point=0;
 		bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -94,6 +96,10 @@ public class GameWorld {
         
         try {
 			pauseTitle=ImageIO.read(new File("data/pause_title.png"));
+			KOImage = ImageIO.read(new File("data/KO.png"));
+			player1win= ImageIO.read(new File("data/1win.png"));
+			player2win= ImageIO.read(new File("data/2win.png"));
+			star = ImageIO.read(new File("data/star.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,21 +182,7 @@ public void Update(){
                 physicalMap.Update();
                 camera.Update();
                 
-                /*
-                if(megaman.getPosX() > finalBossX && finalbossTrigger){
-                    finalbossTrigger = false;
-                    switchState(TUTORIAL);
-                    tutorialState = MEETFINALBOSS;
-                    storyTutorial = 0;
-                    openIntroGameY = 550;
-                    
-                    boss = new FinalBoss(finalBossX + 700, 460, this);
-                    boss.setTeamType(ParticularObject.ENEMY_TEAM);
-                    boss.setDirection(ParticularObject.LEFT_DIR);
-                    particularObjectManager.addObject(boss);
-
-                }
-                */
+                
                 if(megaman.getState() == ParticularObject.DEATH && state==GAMEPLAY){
                 	if(player2Point==0) {
                 		player2Point=1;
@@ -198,7 +190,7 @@ public void Update(){
                 		switchState(ENDGAME);
                 	}
                 	else if (player2Point==1) {
-                		switchState(GAMEOVER);
+                		switchState(PLAYER2WIN);
                 	}
                 }	
                 	
@@ -209,20 +201,20 @@ public void Update(){
                 		switchState(ENDGAME);
                 	}
                 	else if (player1Point==1) {
-                		switchState(GAMEOVER);
+                		switchState(PLAYER1WIN);
                 	}
                 }	    
-                /*
-                if(!finalbossTrigger && boss.getState() == ParticularObject.DEATH)
-                    switchState(GAMEWIN);
-                */
+                
                 
                 //test sth
                 if(testAni==1)
                 	runForwardAnim.Update(System.nanoTime());
                 
                 break;
-            case GAMEOVER:
+            case PLAYER1WIN:
+                
+                break;
+            case PLAYER2WIN:
                 
                 break;
             case GAMEWIN:
@@ -290,9 +282,11 @@ public void Render(){
                 g2.fillRect(810, 71, megaman2.getMana(), 20);
                 
                 for(int i = 0; i < player1Point; i++){
-                    g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i*40, 18, null);
+                	g2.drawImage(star, 135, 23,51,34, null);
                 }
-                
+                for(int i = 0; i < player2Point; i++){
+                g2.drawImage(star, 740, 23,51,34, null);
+                }
                 if (megaman.isBleeding()==true ) 
                 	g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bleed").getImage(), 20, 90, 35, 35, null);
                 
@@ -322,34 +316,23 @@ public void Render(){
                 	g2.drawImage(resumePickImage, GameFrame.SCREEN_WIDTH/2-resumeImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-200, null);
                 else if(pauseGameChoose==1 )
                 	g2.drawImage(quitPickImage, GameFrame.SCREEN_WIDTH/2-quitImage.getWidth()/2, GameFrame.SCREEN_HEIGHT/2-resumeImage.getHeight()/2-100, null);
-                /*
-                case TUTORIAL:
-                    backgroundMap.draw(g2);
-                    if(tutorialState == MEETFINALBOSS){
-                        particularObjectManager.draw(g2);
-                    }
-                    TutorialRender(g2);
-                    
-                    break;
-                    */
+                
                break;
             case ENDGAME:
-            	g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
+            	g2.drawImage(KOImage, 260, 100,440,160, null);
             	break;
-            case GAMEOVER:
-                g2.setColor(Color.BLACK);
-                g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-                g2.setColor(Color.WHITE);
-                g2.drawString("GAME OVER!", 450, 300);
+            case PLAYER1WIN:
+                g2.drawImage(player1win, 260, 100,440,260, null);
                 break;
-
+            case PLAYER2WIN:
+            	g2.drawImage(player2win, 260, 100,440,260, null);
+                break;
         }
         
 
     }
     
-    //FrameImage subImage = CacheDataLoader.getInstance().getFrameImage("blade3");
-	//g2.drawImage(subImage.getImage(), 100,100,200,200, null);
+    
     
     
 }

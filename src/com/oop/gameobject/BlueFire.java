@@ -56,7 +56,7 @@ public class BlueFire extends Bullet{
             // TODO Auto-generated method stub
         if(forwardBulletAnim.isIgnoreFrame(0) || backBulletAnim.isIgnoreFrame(0))
             setPosX(getPosX() + getSpeedX());
-        //System.out.print(getSpeedX());
+        
         super.Update();
         
     }
