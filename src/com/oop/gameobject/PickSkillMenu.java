@@ -24,12 +24,12 @@ public class PickSkillMenu {
     FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
     
     BufferedImage pickSkillMenu,title1,title2;
-    BufferedImage skill0,skill1,skill2,skill3,skill4,skill5,skill6,skill7;
+    BufferedImage skill0,skill1,skill2,skill3,skill4,skill5,skill6,skill7,skill8;
     ArrayList <BufferedImage> skillImg ;
     private int testAni=1;
     private int currentChoose1=0;
     private int currentChoose2=4;
-    private int maxSkill=8;
+    private int maxSkill=9;
     private int countSkill1;
     private int countSkill2;
     
@@ -56,6 +56,7 @@ public class PickSkillMenu {
 		skill5=pickSkillMenu.getSubimage(216, 513, 40, 49);
 		skill6 = pickSkillMenu.getSubimage(357, 513, 40, 49);
 		skill7= pickSkillMenu.getSubimage(507, 513, 40, 49);
+		skill8 = pickSkillMenu.getSubimage(656, 513, 40, 49);
 		skillImg.add(skill0);
 		skillImg.add(skill1);
 		skillImg.add(skill2);
@@ -64,6 +65,7 @@ public class PickSkillMenu {
 		skillImg.add(skill5);
 		skillImg.add(skill6);
 		skillImg.add(skill7);
+		skillImg.add(skill8);
 		bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);  
 	}
 	

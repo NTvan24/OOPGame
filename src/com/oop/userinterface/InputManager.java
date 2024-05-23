@@ -109,6 +109,11 @@ public class InputManager {
 			press.put(key, () -> gameWorld.megaman2.skill7(gameWorld.megaman));
 			skill.put(c, 7);
 		}
+		else if (indexSkill==8)
+		{
+			press.put(key, () -> gameWorld.megaman2.skill8());
+			skill.put(c, 8);
+		}
 		return true;
 	}
 	public boolean setPress1(int indexSkill,String c) {
@@ -162,13 +167,18 @@ public class InputManager {
 			press.put(key, () -> gameWorld.megaman.skill7(gameWorld.megaman2));
 			skill.put(c, 7);
 		}
+		else if (indexSkill==8)
+		{
+			press.put(key, () -> gameWorld.megaman.skill8());
+			skill.put(c, 8);
+		}
 		return true;
 	}
 	public void setPressedButton (int keyCode ){
 		switch(keyCode) {
 		case KeyEvent.VK_E:
 			//gameWorld.megaman.cast();
-			gameWorld.megaman2.skill7(gameWorld.megaman);
+			gameWorld.megaman2.skill8();
 			break;
 		case KeyEvent.VK_R:
 			//gameWorld.megaman.cast();

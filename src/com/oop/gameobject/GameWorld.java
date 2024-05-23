@@ -91,7 +91,7 @@ public class GameWorld {
         particularObjectManager.addObject(megaman);
         particularObjectManager.addObject(megaman2);
         
-        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill7");
+        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill8_un");
         runForwardAnim.flipAllImage();
         
         try {

@@ -198,50 +198,52 @@ public abstract class ParticularObject extends GameObject {
     }
 
     public boolean beHurt(int damgeEat, boolean bleed){
+    	if (state==INVICIBLE|| state == NOBEHURT) {
+    		return false;
+    	} else {
     	
-    	if (state!=NOBEHURT) {
-        setBlood(getBlood() - damgeEat);
-        
-        
-        state = BEHURT;
-        manaIncrease(2);
-        if (bleed == true) 
-        	{
-        		
-        		bleeding=true;
-        		numberBleeding = 5 ;
-        		startTimeBleeding = System.nanoTime();
-        	}
-        hurtingCallback();
-        return true;
+	        setBlood(getBlood() - damgeEat);
+	        
+	        
+	        state = BEHURT;
+	        manaIncrease(2);
+	        if (bleed == true) 
+	        	{
+	        		
+	        		bleeding=true;
+	        		numberBleeding = 5 ;
+	        		startTimeBleeding = System.nanoTime();
+	        	}
+	        hurtingCallback();
+	        return true;
     	}
-    	return false;
     }
     public boolean beHurt(int damgeEat, boolean bleed,boolean skill,int dmgdef){
-    	
-    	if (state!=NOBEHURT) {
-        setBlood(getBlood() - damgeEat);
-        
-        state = BEHURT;
-        setSpeedX(0);
-        
-        if (bleed == true) 
-        	{
-        		
-        		bleeding=true;
-        		numberBleeding = 5 ;
-        		startTimeBleeding = System.nanoTime();
-        	}
-        hurtingCallback();
-        return true;
-    	}
-    	else {
-    		if(state!=INVICIBLE) {
-    			setBlood(getBlood() - dmgdef);
-    			return false;
-    		}
+    	if (state==INVICIBLE) {
     		return false;
     	}
+    	else if (state == NOBEHURT) {
+    		setBlood(getBlood() - dmgdef);
+    		return false;
+    	}
+    	else {
+    		setBlood(getBlood() - damgeEat);
+            
+            state = BEHURT;
+            setSpeedX(0);
+            
+            if (bleed == true) 
+            	{
+            		
+            		bleeding=true;
+            		numberBleeding = 5 ;
+            		startTimeBleeding = System.nanoTime();
+            	}
+            hurtingCallback();
+            return true;
+    	}
+    	
+    	
     }
     
     
@@ -355,6 +357,14 @@ public abstract class ParticularObject extends GameObject {
     public boolean manaDecrease(int m) {
     	if(mana >= m) {
     		mana=mana-m;
+    		return true;
+    	}
+    	else return false;
+    }
+    public boolean manaCheck(int m)
+    {
+    	if(mana >= m) {
+    		
     		return true;
     	}
     	else return false;
