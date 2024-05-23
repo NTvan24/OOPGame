@@ -1,5 +1,243 @@
 
-420
+454
+
+skill7_1_g
+image data/skill7_g.png
+x 191
+y 69
+w 56
+h 92
+
+skill7_2_g
+image data/skill7_g.png
+x 298
+y 70
+w 55
+h 92
+
+skill7_3_g
+image data/skill7_g.png
+x 382
+y 74
+w 83
+h 90
+
+skill7_4_g
+image data/skill7_g.png
+x 49
+y 220
+w 124
+h 77
+
+skill7_5_g
+image data/skill7_g.png
+x 272
+y 193
+w 204
+h 102
+
+skill7_6_g
+image data/skill7_g.png
+x 83
+y 398
+w 266
+h 98
+
+skill7_7_g
+image data/skill7_g.png
+x 367
+y 393
+w 304
+h 107
+
+skill7_8_g
+image data/skill7_g.png
+x 74
+y 571
+w 302
+h 99
+
+skill7_9_g
+image data/skill7_g.png
+x 416
+y 575
+w 324
+h 96
+
+skill7_10_g
+image data/skill7_g.png
+x 42
+y 717
+w 314
+h 84
+
+skill7_1
+image data/skill7.png
+x 191
+y 69
+w 56
+h 92
+
+skill7_2
+image data/skill7.png
+x 298
+y 70
+w 55
+h 92
+
+skill7_3
+image data/skill7.png
+x 382
+y 74
+w 83
+h 90
+
+skill7_4
+image data/skill7.png
+x 49
+y 220
+w 124
+h 77
+
+skill7_5
+image data/skill7.png
+x 272
+y 193
+w 204
+h 102
+
+skill7_6
+image data/skill7.png
+x 83
+y 398
+w 266
+h 98
+
+skill7_7
+image data/skill7.png
+x 367
+y 393
+w 304
+h 107
+
+skill7_8
+image data/skill7.png
+x 74
+y 571
+w 302
+h 99
+
+skill7_9
+image data/skill7.png
+x 416
+y 575
+w 324
+h 96
+
+skill7_10
+image data/skill7.png
+x 42
+y 717
+w 314
+h 84
+
+skill6_1_g
+image data/skill6_g.png
+x 427
+y 826
+w 49
+h 95
+
+skill6_2_g
+image data/skill6_g.png
+x 554
+y 811
+w 173
+h 111
+
+skill6_3_g
+image data/skill6_g.png
+x 852
+y 824
+w 82
+h 96
+
+skill6_1
+image data/skill6.png
+x 427
+y 826
+w 49
+h 95
+
+skill6_2
+image data/skill6.png
+x 554
+y 811
+w 173
+h 111
+
+skill6_3
+image data/skill6.png
+x 852
+y 824
+w 82
+h 96
+
+skill5_1_g
+image data/skill5_g.png
+x 172
+y 320
+w 50
+h 95
+
+skill5_2_g
+image data/skill5_g.png
+x 284
+y 241
+w 99
+h 177
+
+skill5_3_g
+image data/skill5_g.png
+x 418
+y 240
+w 108
+h 178
+
+skill5_4_g
+image data/skill5_g.png
+x 571
+y 240
+w 104
+h 176
+
+skill5_5_g
+image data/skill5_g.png
+x 220
+y 468
+w 114
+h 177
+
+skill5_6_g
+image data/skill5_g.png
+x 437
+y 469
+w 115
+h 174
+
+skill5_7_g
+image data/skill5_g.png
+x 51
+y 724
+w 110
+h 176
+
+skill5_8_g
+image data/skill5_g.png
+x 385
+y 725
+w 499
+h 175
 
 skill5_1
 image data/skill5.png

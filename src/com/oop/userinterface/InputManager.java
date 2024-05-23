@@ -57,111 +57,7 @@ public class InputManager {
 			return skill.get(c);
 		else return -1;
 	}
-	public boolean setPressR(int indexSkill) {
-		if (press.get(KeyEvent.VK_R)!=null) return false;
-		if (indexSkill==0) {
-			press.put(KeyEvent.VK_R, () -> gameWorld.megaman.cast());
-			unPress.put(KeyEvent.VK_R, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
-			skill.put("R", 0);
-		}
-		else if (indexSkill==1)
-			{
-				press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
-				skill.put("R", 1);
-			}
-		else if (indexSkill==2)
-			{
-				press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
-				skill.put("R", 2);
-			}
-		else if (indexSkill==3)
-			{
-				press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
-				skill.put("R", 3);
-			}
-		else if (indexSkill==4)
-			{
-				press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
-				skill.put("R", 4);
-			}
-		else if (indexSkill==5)
-			{
-				press.put(KeyEvent.VK_R, () -> gameWorld.megaman.skill5(gameWorld.megaman2));
-				skill.put("R", 5);
-			}
-		return true;
-	}
 	
-	public boolean setPressT(int indexSkill) {
-		if (press.get(KeyEvent.VK_T)!=null) return false;
-		if (indexSkill==0) {
-			press.put(KeyEvent.VK_T, () -> gameWorld.megaman.cast());
-			unPress.put(KeyEvent.VK_T, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
-			skill.put("T", 0);
-		}
-		else if (indexSkill==1)
-			{
-				press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
-				skill.put("T", 1);
-			}
-		else if (indexSkill==2)
-			{
-				press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
-				skill.put("T", 2);
-			}
-		else if (indexSkill==3)
-			{
-				press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
-				skill.put("T", 3);
-			}
-		else if (indexSkill==4)
-			{
-				press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
-				skill.put("T", 4);
-			}
-		else if (indexSkill==5)
-			{
-				press.put(KeyEvent.VK_T, () -> gameWorld.megaman.skill5(gameWorld.megaman2));
-				skill.put("T", 5);
-			}
-		return true;
-			
-	}
-	public boolean setPressY(int indexSkill) {
-		if (press.get(KeyEvent.VK_Y)!=null) return false;
-		if (indexSkill==0) {
-			press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.cast());
-			unPress.put(KeyEvent.VK_Y, () -> gameWorld.megaman.unCast(gameWorld.megaman2));
-			skill.put("Y", 0);
-		}
-		else if (indexSkill==1)
-			{
-				press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill1(gameWorld.megaman2));
-				skill.put("Y", 1);
-			}
-		else if (indexSkill==2)
-			{
-				press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill2(gameWorld.megaman2));
-				skill.put("Y", 2);
-			}
-		else if (indexSkill==3)
-			{
-				press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill3(gameWorld.megaman2));
-				skill.put("Y", 3);
-			}
-		else if (indexSkill==4)
-			{
-				press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill4(gameWorld.megaman2));
-				skill.put("Y", 4);
-			}
-		else if (indexSkill==5)
-			{
-				press.put(KeyEvent.VK_Y, () -> gameWorld.megaman.skill5(gameWorld.megaman2));
-				skill.put("Y", 5);
-			}
-		return true;
-			
-	}
 	public boolean setPress2(int indexSkill,String c) {
 		int key = 0;
 		if(c=="U") {
@@ -203,6 +99,16 @@ public class InputManager {
 				press.put(key, () -> gameWorld.megaman2.skill5(gameWorld.megaman));
 				skill.put(c, 5);
 			}
+		else if (indexSkill==6)
+		{
+			press.put(key, () -> gameWorld.megaman2.skill6(gameWorld.megaman));
+			skill.put(c, 6);
+		}
+		else if (indexSkill==7)
+		{
+			press.put(key, () -> gameWorld.megaman2.skill7(gameWorld.megaman));
+			skill.put(c, 7);
+		}
 		return true;
 	}
 	public boolean setPress1(int indexSkill,String c) {
@@ -246,13 +152,23 @@ public class InputManager {
 				press.put(key, () -> gameWorld.megaman.skill5(gameWorld.megaman2));
 				skill.put(c, 5);
 			}
+		else if (indexSkill==6)
+		{
+			press.put(key, () -> gameWorld.megaman.skill6(gameWorld.megaman2));
+			skill.put(c, 6);
+		}
+		else if (indexSkill==7)
+		{
+			press.put(key, () -> gameWorld.megaman.skill7(gameWorld.megaman2));
+			skill.put(c, 7);
+		}
 		return true;
 	}
 	public void setPressedButton (int keyCode ){
 		switch(keyCode) {
 		case KeyEvent.VK_E:
 			//gameWorld.megaman.cast();
-			//gameWorld.megaman.skill5(gameWorld.megaman2);
+			gameWorld.megaman2.skill7(gameWorld.megaman);
 			break;
 		case KeyEvent.VK_R:
 			//gameWorld.megaman.cast();

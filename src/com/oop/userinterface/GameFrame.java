@@ -2,6 +2,7 @@ package com.oop.userinterface;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -20,7 +21,8 @@ public class GameFrame extends JFrame {
 		this.setBounds((dimension.width-SCREEN_WIDTH)/2, (dimension.height-SCREEN_HEIGHT)/2, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		File file = new File("a.txt");
+		System.out.println(file.getPath());
 		try {
 			CacheDataLoader.getInstance().LoadData();
 		} catch (IOException e) {

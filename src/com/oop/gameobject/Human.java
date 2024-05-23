@@ -64,13 +64,16 @@ public abstract class Human extends ParticularObject{
 
 	public void bounceBack(int dir)
     {
+    	if(getState()!=ParticularObject.INVICIBLE)
+    	{
+    		isBounceBack=true;
     	
-    	isBounceBack=true;
-    	isJumping=true;
-    	startBounceBack=System.nanoTime();
-    	setSpeedY(-3);
-    	if (dir==LEFT_DIR) setSpeedX(-2);
-    	else setSpeedX(2);
+	    	isJumping=true;
+	    	startBounceBack=System.nanoTime();
+	    	setSpeedY(-3);
+	    	if (dir==LEFT_DIR) setSpeedX(-2);
+	    	else setSpeedX(2);
+    	}
     	
     }
     @Override

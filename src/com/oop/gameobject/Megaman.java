@@ -40,6 +40,8 @@ public class Megaman extends Human {
     private Animation skill3,skill3Back;
     private Animation skill4,skill4Back;
     private Animation skill5,skill5Back;
+    private Animation skill6,skill6Back;
+    private Animation skill7,skill7Back;
     private Animation def,defBack;
     
     private long lastShootingTime;
@@ -63,6 +65,8 @@ public class Megaman extends Human {
     private Skill skillObject3;
     private Skill skillObject4;
     private Skill skillObject5;
+    private Skill skillObject6;
+    private Skill skillObject7;
     
     private Map<String, Boolean> megamanState = new HashMap<>();
     private Map<String, Long> startTime = new HashMap<>();
@@ -88,12 +92,18 @@ public class Megaman extends Human {
         skillObject4.setTeamType(team);
         skillObject5 = new Skill(50,20, getGameWorld());
         skillObject5.setTeamType(team);
-        
+        skillObject6 = new Skill(0,0, getGameWorld());
+        skillObject6.setTeamType(team);
+        skillObject7 = new Skill(20,5, getGameWorld());
+        skillObject7.setTeamType(team);
+
         megamanState.put("skill1", false);
         megamanState.put("skill2", false);
         megamanState.put("skill3", false);
         megamanState.put("skill4", false);
         megamanState.put("skill5", false);
+        megamanState.put("skill6", false);
+        megamanState.put("skill7", false);
         bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
         bgMusic.play();
         if(team==ParticularObject.LEAGUE_TEAM)
@@ -212,6 +222,18 @@ public class Megaman extends Human {
         skill5.setIsRepeated(false);
         skill5Back.setIsRepeated(false);
         
+        skill6 = CacheDataLoader.getInstance().getAnimation("skill6");
+        skill6Back = CacheDataLoader.getInstance().getAnimation("skill6");
+        skill6Back.flipAllImage();
+        skill6.setIsRepeated(false);
+        skill6Back.setIsRepeated(false);
+        
+        skill7 = CacheDataLoader.getInstance().getAnimation("skill7");
+        skill7Back = CacheDataLoader.getInstance().getAnimation("skill7");
+        skill7Back.flipAllImage();
+        skill7.setIsRepeated(false);
+        skill7Back.setIsRepeated(false);
+        
         def = CacheDataLoader.getInstance().getAnimation("def");
         defBack = CacheDataLoader.getInstance().getAnimation("def");
         defBack.flipAllImage();
@@ -325,11 +347,23 @@ public class Megaman extends Human {
             skill4.setIsRepeated(false);
             skill4Back.setIsRepeated(false);
             
-            skill5 = CacheDataLoader.getInstance().getAnimation("skill5");
-            skill5Back = CacheDataLoader.getInstance().getAnimation("skill5");
+            skill5 = CacheDataLoader.getInstance().getAnimation("skill5_g");
+            skill5Back = CacheDataLoader.getInstance().getAnimation("skill5_g");
             skill5Back.flipAllImage();
             skill5.setIsRepeated(false);
             skill5Back.setIsRepeated(false);
+            
+            skill6 = CacheDataLoader.getInstance().getAnimation("skill6_g");
+            skill6Back = CacheDataLoader.getInstance().getAnimation("skill6_g");
+            skill6Back.flipAllImage();
+            skill6.setIsRepeated(false);
+            skill6Back.setIsRepeated(false);
+            
+            skill7 = CacheDataLoader.getInstance().getAnimation("skill7_g");
+            skill7Back = CacheDataLoader.getInstance().getAnimation("skill7_g");
+            skill7Back.flipAllImage();
+            skill7.setIsRepeated(false);
+            skill7Back.setIsRepeated(false);
             
             def = CacheDataLoader.getInstance().getAnimation("def_g");
             defBack = CacheDataLoader.getInstance().getAnimation("def_g");
@@ -414,11 +448,24 @@ public class Megaman extends Human {
         		megamanState.put("skill1", false);
         		skillObject1.setState(ParticularObject.DEATH);
         	}
+        if(megamanState.get("skill7")==true)
+        	if(System.nanoTime()-startTime.get("skill7")>1200*1000000)
+        	{
+        		megamanState.put("skill7", false);
+        		skillObject7.setState(ParticularObject.DEATH);
+        	}
         if(megamanState.get("skill5")==true)
         	if(System.nanoTime()-startTime.get("skill5")>1500*1000000)
         	{
         		megamanState.put("skill5", false);
         		skillObject5.setState(ParticularObject.DEATH);
+        	}
+        
+        if(megamanState.get("skill6")==true)
+        	if(System.nanoTime()-startTime.get("skill6")>450*1000000)
+        	{
+        		megamanState.put("skill6", false);
+        		skillObject6.setState(ParticularObject.DEATH);
         	}
         if(megamanState.get("skill2")==true)
         	if(System.nanoTime()-startTime.get("skill2")>800*1000000)
@@ -628,8 +675,20 @@ public class Megaman extends Human {
                                 		skill5.draw((int) (getPosX() - getGameWorld().camera.getPosX()+200), (int) getPosY() - (int) getGameWorld().camera.getPosY()-30,5,6, g2,skillObject5,true);
                                 	}
                                 		else skill5.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY()-30,5,6, g2);
-                                }
-                                else {
+                                }else if(megamanState.get("skill6")==true) {
+                                	skill6.Update(System.nanoTime());
+                                	skill6.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject6);
+                                } else if(megamanState.get("skill7")==true) {
+                                	skill7.Update(System.nanoTime());
+                                	if (skill7.getCurrentFrame()==3) {
+                                		skill7.draw((int) (getPosX() - getGameWorld().camera.getPosX()+40), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else if (skill7.getCurrentFrame()==4) {
+                                		skill7.draw((int) (getPosX() - getGameWorld().camera.getPosX()+90), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else if (skill7.getCurrentFrame()>=5) {
+                                		skill7.draw((int) (getPosX() - getGameWorld().camera.getPosX()+120), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else
+                                	skill7.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }else {
                                 	idleForwardAnim.Update(System.nanoTime());
                                     idleForwardAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
                                 }
@@ -696,8 +755,22 @@ public class Megaman extends Human {
                                 		skill5Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()-200), (int) getPosY() - (int) getGameWorld().camera.getPosY()-30,5,6, g2,skillObject5,true);
                                 	}
                                 		else skill5Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY()-30,5,6, g2,skillObject5);
+                                } else if(megamanState.get("skill6")==true) {
+                                	skill6Back.Update(System.nanoTime());
+                                	skill6Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject6);
+                                	
                                 }
-                                else {
+                                else if(megamanState.get("skill7")==true) {
+                                	skill7Back.Update(System.nanoTime());
+                                	if (skill7Back.getCurrentFrame()==3) {
+                                		skill7Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()-40), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else if (skill7Back.getCurrentFrame()==4) {
+                                		skill7Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()-90), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else if (skill7Back.getCurrentFrame()>=5) {
+                                		skill7Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()-120), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2,skillObject7);
+                                	} else
+                                	skill7Back.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5,6, g2);
+                                }else {
                                     idleBackAnim.Update(System.nanoTime());
                                     idleBackAnim.draw((int) (getPosX() - getGameWorld().camera.getPosX()), (int) getPosY() - (int) getGameWorld().camera.getPosY(),5, g2);
                                 }
@@ -992,15 +1065,44 @@ public class Megaman extends Human {
     		startTime.put("skill1", System.nanoTime());
     		skill1.reset();
     		skill1Back.reset();
-    		/*
-    		int range=210;
-    		int dmg = 20;
-    		meleeAttack(enemy, range, dmg, false, true);
-    		*/
+    		
     		
     		skillObject1.setState(ParticularObject.ALIVE);
     		skillObject1.setDirection(getDirection());
             getGameWorld().bulletManager.addObject(skillObject1);
+    	}
+    }
+    
+    public void skill6(Megaman enemy) {
+    	//skill ban ra con rong nuoc
+    	if(megamanState.get("skill6")==false&&freeze()==false&&manaDecrease(33)) {
+    		stopRun();
+    		megamanState.put("skill6", true);
+    		startTime.put("skill6", System.nanoTime());
+    		skill6.reset();
+    		skill6Back.reset();
+    		
+    		
+    		skillObject6.setState(ParticularObject.ALIVE);
+    		skillObject6.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject6);
+    	}
+    }
+    
+    public void skill7(Megaman enemy) {
+    	//skill ban ra con rong nuoc
+    	if(megamanState.get("skill7")==false&&freeze()==false&&manaDecrease(66)) {
+    		skillObject7.reset();
+    		stopRun();
+    		megamanState.put("skill7", true);
+    		startTime.put("skill7", System.nanoTime());
+    		skill7.reset();
+    		skill7Back.reset();
+    		
+    		
+    		skillObject7.setState(ParticularObject.ALIVE);
+    		skillObject7.setDirection(getDirection());
+            getGameWorld().bulletManager.addObject(skillObject7);
     	}
     }
     

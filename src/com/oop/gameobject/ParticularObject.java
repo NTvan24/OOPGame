@@ -20,10 +20,11 @@ public abstract class ParticularObject extends GameObject {
     public static final int BEHURT = 1;
     public static final int FEY = 2; //sap chet
     public static final int DEATH = 3;
-    public static final int NOBEHURT = 5; //bat tu tam thoi sau khi hoisinh
+    public static final int NOBEHURT = 5; 
+    public static final int INVICIBLE = 6; 
     public static final int FREEZE = 4;
     private int state = ALIVE;
-    public int mana=0;
+    public int mana=1000;
     
     private int width;
     private int height;
@@ -235,7 +236,10 @@ public abstract class ParticularObject extends GameObject {
         return true;
     	}
     	else {
-    		setBlood(getBlood() - dmgdef);
+    		if(state!=INVICIBLE) {
+    			setBlood(getBlood() - dmgdef);
+    			return false;
+    		}
     		return false;
     	}
     }

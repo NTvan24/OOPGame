@@ -70,7 +70,7 @@ public class GameWorld {
     private int pauseGameChoose=0;
     
     
-    private int testAni=0;
+    private int testAni=1;
     
 	public AudioClip bgMusic;
 	
@@ -91,7 +91,7 @@ public class GameWorld {
         particularObjectManager.addObject(megaman);
         particularObjectManager.addObject(megaman2);
         
-        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill4");
+        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill7");
         runForwardAnim.flipAllImage();
         
         try {
