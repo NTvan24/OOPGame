@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 
 import com.oop.effect.FrameImage;
@@ -59,7 +61,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			e.printStackTrace();
 		}
         //gameState = new MenuState(this);
-    	gameWorld = new GameWorld();
+    	try {
+			gameWorld = new GameWorld();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	skillMenu = new PickSkillMenu(this);
     	
         if(state== GAMEPLAY) gameWorld.resetMap();

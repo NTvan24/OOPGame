@@ -178,7 +178,7 @@ public class InputManager {
 		switch(keyCode) {
 		case KeyEvent.VK_E:
 			//gameWorld.megaman.cast();
-			gameWorld.megaman2.skill8();
+			//gameWorld.megaman.skill7(gameWorld.megaman2);
 			break;
 		case KeyEvent.VK_R:
 			//gameWorld.megaman.cast();
@@ -196,8 +196,9 @@ public class InputManager {
 			
 			break;
 		case KeyEvent.VK_W:
-			
-			if(gamePanel.getState()==GamePanel.PICKSKILL)
+			if(gamePanel.getState()==GamePanel.GAMEPLAY)
+				gameWorld.megaman.jump();
+			else if(gamePanel.getState()==GamePanel.PICKSKILL)
 				pickSkillMenu.decreaseChoose1(true);
 			break;
 		case KeyEvent.VK_S:
@@ -273,13 +274,15 @@ public class InputManager {
 			break;
 			
 		case KeyEvent.VK_SPACE:
-			gameWorld.megaman.jump();
+			
 			break;
 		case KeyEvent.VK_H:
-			gameWorld.megaman.attack();;
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
+				gameWorld.megaman.attack();;
 			break;
 		case KeyEvent.VK_G:
-			gameWorld.megaman.dash();
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
+				gameWorld.megaman.dash();
 			break;
 		
 	case KeyEvent.VK_UP:
@@ -338,26 +341,32 @@ public class InputManager {
 		}
 		break;
 	case KeyEvent.VK_L:
-		gameWorld.megaman2.attack();
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
+			gameWorld.megaman2.attack();
 		break;
 	case KeyEvent.VK_K:
-		gameWorld.megaman2.dash();
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
+			gameWorld.megaman2.dash();
 		break;
 	case KeyEvent.VK_J:
-		gameWorld.megaman2.normalAttack(gameWorld.megaman);
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
+			gameWorld.megaman2.normalAttack(gameWorld.megaman);
 		break;
 	case KeyEvent.VK_U:
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
 		if (press.containsKey(KeyEvent.VK_R))
             press.get(KeyEvent.VK_U).run();
 		break;
 		
 		
 	case KeyEvent.VK_I:
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
 		if (press.containsKey(KeyEvent.VK_R))
             press.get(KeyEvent.VK_I).run();
 		
 		break;
 	case KeyEvent.VK_O:
+		if (gamePanel.getState()==GamePanel.GAMEPLAY)
 		if (press.containsKey(KeyEvent.VK_R))
             press.get(KeyEvent.VK_O).run();
 		
@@ -416,13 +425,16 @@ public class InputManager {
 				gameWorld.megaman.unDef();
 			break;
 		case KeyEvent.VK_DOWN:
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
 			gameWorld.megaman2.unDef();			//gameWorld.megaman.standUp();;
 			break;
 		case KeyEvent.VK_RIGHT:
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
 			if(gameWorld.megaman2.getSpeedX()>0)
 				gameWorld.megaman2.stopRun();
 			break;
 		case KeyEvent.VK_LEFT:
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
 			if(gameWorld.megaman2.getSpeedX()<0)
 				gameWorld.megaman2.stopRun();
 			break;
@@ -437,12 +449,13 @@ public class InputManager {
 			break;
 		
 		case KeyEvent.VK_D:
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
 			if(gameWorld.megaman.getSpeedX()>0)
 				gameWorld.megaman.stopRun();
 			
 			break;
 		case KeyEvent.VK_A:
-		
+			if (gamePanel.getState()==GamePanel.GAMEPLAY)
 			if(gameWorld.megaman.getSpeedX()<0)
 				gameWorld.megaman.stopRun();
 			break;

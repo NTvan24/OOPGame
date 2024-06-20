@@ -11,6 +11,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.oop.effect.Animation;
 import com.oop.effect.CacheDataLoader;
@@ -31,37 +36,25 @@ public class GameWorld {
 	public BufferedImage buffI;
 	public BulletManager bulletManager;
 	public Animation forwardBulletAnim ;
-	public BackgroundMap backgroundMap;
+	//public BackgroundMap backgroundMap;
 	private BufferedImage resumeImage,quitImage,resumePickImage,quitPickImage,pauseTitle;
 	
     
     public static final int PAUSEGAME = 0;
-    //public static final int TUTORIAL = 1;
+    
     public static final int GAMEPLAY = 2;
     public static final int PLAYER1WIN = 6;
     public static final int PLAYER2WIN = 7;
     public static final int GAMEWIN = 4;
     public static final int ENDGAME = 5;
     
-    //public static final int INTROGAME = 0;
-    //public static final int MEETFINALBOSS = 1;
+  
 	
     
     public int openIntroGameY = 0;
     public int state = PLAYER1WIN;
     public int previousState = state;
-    //public int tutorialState = INTROGAME;
     
-    //public int storyTutorial = 0;
-    //public String[] texts1 = new String[4];
-
-    //public String textTutorial;
-    //public int currentSize = 1;
-    
-    //private boolean finalbossTrigger = true;
-    //ParticularObject boss;
-    
-    FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
     
     private int player1Point=0;
     private int player2Point=0;
@@ -70,12 +63,12 @@ public class GameWorld {
     private int pauseGameChoose=0;
     
     
-    private int testAni=1;
+    private int testAni=0;
     
-	public AudioClip bgMusic;
+	public AudioInputStream bgMusic;
 	
 	@SuppressWarnings("deprecation")
-	public GameWorld() {
+	public GameWorld() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
 		 
 		player1Point=0;
@@ -83,7 +76,7 @@ public class GameWorld {
 		bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		megaman = new Megaman(400, 400, this, ParticularObject.LEAGUE_TEAM);
         megaman2= new Megaman(600,400,this,ParticularObject.ENEMY_TEAM);
-        backgroundMap = new BackgroundMap(0, 0, this);
+        //backgroundMap = new BackgroundMap(0, 0, this);
         camera = new Camera(0, 50, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, this);
         bulletManager = new BulletManager(this);
         
@@ -91,7 +84,7 @@ public class GameWorld {
         particularObjectManager.addObject(megaman);
         particularObjectManager.addObject(megaman2);
         
-        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill8_un");
+        runForwardAnim = CacheDataLoader.getInstance().getAnimation("skill1");
         runForwardAnim.flipAllImage();
         
         try {
@@ -108,16 +101,19 @@ public class GameWorld {
         quitImage = pauseTitle.getSubimage(346, 179, 276, 22);
         resumePickImage = pauseTitle.getSubimage(50, 71, 144, 19);
         resumeImage = pauseTitle.getSubimage(346, 71, 144, 19);
-        
-        bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
-        
+        File bgPath = new File("data/bgmusic2.wav");
+        bgMusic = AudioSystem.getAudioInputStream(bgPath);
+        Clip clip = AudioSystem.getClip();
+        clip.open(bgMusic);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
 	}
 	
 	public void newGame()
 	{
 		player1Point=0;
 	    player2Point=0;
-	    bgMusic.play();
+	   
 	}
 	
 	public void resetMap() {
@@ -139,7 +135,7 @@ public class GameWorld {
 		//bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         
         physicalMap = new PhysicalMap(0, 0, this,mapIndex);
-        bgMusic.play();
+        
 	}
 	
 	
@@ -238,7 +234,7 @@ public void Render(){
         // need to remove this line
         
         //g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-        //physicalMap.draw(g2);
+        
         
         camera.lock();
         
@@ -329,7 +325,7 @@ public void Render(){
                 break;
         }
         
-
+        //physicalMap.draw(g2);
     }
     
     

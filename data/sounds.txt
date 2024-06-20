@@ -1,10 +1,15 @@
-8
+12
 
-bluefireshooting data/bluefireshooting.wav
-redeyeshooting data/redeyeshooting.wav
-bgmusic data/bgmusic.wav
-robotRshooting data/robotRshooting.wav
+
 megamanhurt data/megamanhurt.wav
 punch data/punch.wav
 getpunch data/getpunch.wav
 shuriken data/shuriken.wav
+skill1 data/skill1.wav
+skill2 data/skill2.wav
+skill3 data/skill3.wav
+skill4 data/skill4.wav
+skill5 data/skill5.wav
+skill7 data/skill7.wav
+skill8 data/skill8.wav
+cast data/cast.wav

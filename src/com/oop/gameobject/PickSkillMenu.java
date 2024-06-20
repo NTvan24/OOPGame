@@ -20,8 +20,8 @@ public class PickSkillMenu {
 	
 	GamePanel gamePanel;
 	private BufferedImage bufferedImage;
+    
 
-    FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
     
     BufferedImage pickSkillMenu,title1,title2;
     BufferedImage skill0,skill1,skill2,skill3,skill4,skill5,skill6,skill7,skill8;
@@ -33,14 +33,14 @@ public class PickSkillMenu {
     private int countSkill1;
     private int countSkill2;
     
-	public AudioClip bgMusic;
+	
 	
 	public PickSkillMenu(GamePanel gamePanel ) {
 		this.gamePanel=gamePanel;
 		countSkill1=0;
 		countSkill2=0;
 		try {
-			pickSkillMenu=ImageIO.read(new File("data/pickskill.png"));
+			pickSkillMenu=ImageIO.read(new File("data/pickskill2.png"));
 			title1=ImageIO.read(new File("data/pickskilltitle.png"));
 			title2=ImageIO.read(new File("data/titlegreen.png"));
 		} catch (IOException e) {

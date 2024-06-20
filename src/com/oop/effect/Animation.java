@@ -196,8 +196,7 @@ public class Animation {
         if(drawRectFrame)
             g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
         
-        g2.setColor(Color.RED);
-        g2.drawRect( x - image.getWidth()/2/ratio*ratio2, y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2);
+        
     }
     public void draw(int x, int y,int ratio,int ratio2,Graphics2D g2, Skill skill){
         
@@ -210,7 +209,7 @@ public class Animation {
         Rectangle rect = new Rectangle(x - image.getWidth()/2/ratio*ratio2 ,y - image.getHeight()/2/ratio*ratio2, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2);
         skill.setRect(rect);
         
-        skill.drawBoundForCollisionWithMap(g2);
+        //skill.drawBoundForCollisionWithMap(g2);
     }
     public void draw(int x, int y,int ratio,int ratio2,Graphics2D g2, Skill skill, boolean skill5){
         
@@ -223,7 +222,7 @@ public class Animation {
         Rectangle rect = new Rectangle(x - image.getWidth()/2/ratio*ratio2 ,y - image.getHeight()/2/ratio*ratio2+100, image.getWidth()/ratio*ratio2, image.getHeight()/ratio*ratio2-100);
         skill.setRect(rect);
         
-        skill.drawBoundForCollisionWithMap(g2);
+        //skill.drawBoundForCollisionWithMap(g2);
     }
     public void draw(int x, int y,int ratio,Graphics2D g2){
         

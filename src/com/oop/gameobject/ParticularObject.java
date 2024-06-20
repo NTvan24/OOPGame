@@ -24,7 +24,7 @@ public abstract class ParticularObject extends GameObject {
     public static final int INVICIBLE = 6; 
     public static final int FREEZE = 4;
     private int state = ALIVE;
-    public int mana=1000;
+    public int mana=0;
     
     private int width;
     private int height;
@@ -206,7 +206,7 @@ public abstract class ParticularObject extends GameObject {
 	        
 	        
 	        state = BEHURT;
-	        manaIncrease(2);
+	        manaIncrease(4);
 	        if (bleed == true) 
 	        	{
 	        		

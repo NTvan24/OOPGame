@@ -29,7 +29,7 @@ public class Megaman extends Human {
     private Animation punchAttackAnim, punchAttackBackAnim;
     private Animation kneeStrikeAttackAnim, kneeStrikeAttackBackAnim;
     private Animation dashAnim, dashBackAnim;
-    private Animation climWallForward, climWallBack;
+    
     private Animation bounceForward,bounceBack;
     private Animation castLow,castLowBack;
     private Animation castHigh,castHighBack;
@@ -77,7 +77,7 @@ public class Megaman extends Human {
     
     private int meleeAttackCombo=-1;
     
-    
+    private AudioClip skill1aud,skill2aud,skill3aud,skill4aud,skill5aud,skill7aud,skill8aud,cast;
     private AudioClip hurtingSound;
     private AudioClip shooting1;
     private AudioClip punchSound,bgMusic;
@@ -109,11 +109,18 @@ public class Megaman extends Human {
         megamanState.put("skill6", false);
         megamanState.put("skill7", false);
         megamanState.put("skill8", false);
-        bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
-        bgMusic.play();
+        
         shooting1 = CacheDataLoader.getInstance().getSound("shuriken");
         hurtingSound = CacheDataLoader.getInstance().getSound("getpunch");
         punchSound = CacheDataLoader.getInstance().getSound("punch");
+        skill1aud = CacheDataLoader.getInstance().getSound("skill1");
+        skill2aud = CacheDataLoader.getInstance().getSound("skill2");
+        skill3aud = CacheDataLoader.getInstance().getSound("skill3");
+        skill4aud = CacheDataLoader.getInstance().getSound("skill4");
+        skill5aud = CacheDataLoader.getInstance().getSound("skill5");
+        skill7aud = CacheDataLoader.getInstance().getSound("skill7");
+        skill8aud = CacheDataLoader.getInstance().getSound("skill8");
+        cast = CacheDataLoader.getInstance().getSound("cast");
         if(team==ParticularObject.LEAGUE_TEAM)
         {
         
@@ -147,9 +154,7 @@ public class Megaman extends Human {
         landingBackAnim = CacheDataLoader.getInstance().getAnimation("landing");
         landingBackAnim.flipAllImage();
         
-        climWallBack = CacheDataLoader.getInstance().getAnimation("clim_wall");
-        climWallForward = CacheDataLoader.getInstance().getAnimation("clim_wall");
-        climWallForward.flipAllImage();
+        
         
         behurtForwardAnim = CacheDataLoader.getInstance().getAnimation("behurt");
         behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt");
@@ -256,9 +261,7 @@ public class Megaman extends Human {
         }
         else if(team==ParticularObject.ENEMY_TEAM)
         {
-        	shooting1 = CacheDataLoader.getInstance().getSound("bluefireshooting");
-            hurtingSound = CacheDataLoader.getInstance().getSound("getpunch");
-            punchSound = CacheDataLoader.getInstance().getSound("punch");
+        	
             setTeamType(team);
 
             setTimeForFreeze(2000*1000000);
@@ -288,9 +291,7 @@ public class Megaman extends Human {
             landingBackAnim = CacheDataLoader.getInstance().getAnimation("landing_g");
             landingBackAnim.flipAllImage();
             
-            climWallBack = CacheDataLoader.getInstance().getAnimation("clim_wall");
-            climWallForward = CacheDataLoader.getInstance().getAnimation("clim_wall");
-            climWallForward.flipAllImage();
+            
             
             behurtForwardAnim = CacheDataLoader.getInstance().getAnimation("behurt_g");
             behurtBackAnim = CacheDataLoader.getInstance().getAnimation("behurt_g");
@@ -938,6 +939,8 @@ public class Megaman extends Human {
     	if(freeze()==false) {
     		stopRun();
 	    	if(isCastingLow==false&&isCastingHigh==false&&manaCheck(33)) {
+	    		cast.play();
+	    		//skill2aud.play();
 	    		manaDecrease(33);
 	    		castLow.unIgnoreFrame(0);
 	    		castLowBack.unIgnoreFrame(0);
@@ -959,11 +962,14 @@ public class Megaman extends Human {
     	}
     }
     public void unCast(Megaman enemy) {
+    	
     	int range=180;
     	int dmg=10;
     	boolean bleed=false;
     	
     	if(isCastingLow==true) {
+    		cast.stop();
+        	skill2aud.play();
     		range=110;
     		dmg = 15;
     		meleeAttack(enemy, range, dmg, bleed, false);
@@ -974,6 +980,8 @@ public class Megaman extends Human {
     	}
     	else if (isCastingHigh==true)
     	{
+    		cast.stop();
+        	skill2aud.play();
     		range=160;
     		dmg = 35;
     		meleeAttack(enemy, range, dmg, bleed, true);
@@ -1033,6 +1041,7 @@ public class Megaman extends Human {
     }
     
     public void normalAttack(Megaman enemy) {
+    	if(getIsJumping()==false) {
     	int range=120;
     	int dmg=10;
     	boolean bleed=false;
@@ -1050,14 +1059,15 @@ public class Megaman extends Human {
 	    				if(meleeAttackCombo==1) enemy.bounceBack(RIGHT_DIR);
 	    			}
 	    		*/
-		    	if(meleeAttackCombo==1) this.meleeAttack(enemy, range, 5, bleed, true);
-		    	else this.meleeAttack(enemy, range, 3, bleed, false);
+		    	if(meleeAttackCombo==1) this.meleeAttack(enemy, range, 2, bleed, true);
+		    	else this.meleeAttack(enemy, range, 2, bleed, false);
 		    	
 		    	isMeleeAttack=true;
 		    	meleeAttackCombo++;
 		    	if(meleeAttackCombo>2)  meleeAttackCombo=0;
 		    	lastMeleeAttack= System.nanoTime();
 	    	}
+    	}
     	}
     }
     public void meleeAttack(Megaman enemy, double range, int dmg, boolean bleed, boolean bounce) {
@@ -1067,7 +1077,7 @@ public class Megaman extends Human {
     			{
     				
     				boolean denied = enemy.beHurt(dmg,bleed);
-    				if(denied == true) manaIncrease(5);
+    				if(denied == true) manaIncrease(10);
     				if(bounce==true) enemy.bounceBack(RIGHT_DIR);
     			}
     	}
@@ -1076,7 +1086,7 @@ public class Megaman extends Human {
     			{
     				
     				boolean denied = enemy.beHurt(dmg,bleed);
-    				if(denied == true) manaIncrease(5);
+    				if(denied == true) manaIncrease(10);
     				if(bounce==true) enemy.bounceBack(LEFT_DIR);
     			}
     	}
@@ -1084,7 +1094,7 @@ public class Megaman extends Human {
     
     
     public void dash() {
-    	if(freeze()==false)
+    	if(freeze()==false&&getIsJumping()==false)
     		if(System.nanoTime()-lastDash>1000*1000000)
     				if(!getIsJumping()) {
     					setDash(true);
@@ -1106,7 +1116,11 @@ public class Megaman extends Human {
         		megamanState.get("skill1") == true ||
         		megamanState.get("skill2") == true ||
         		megamanState.get("skill3") == true ||
-        		megamanState.get("skill4") == true 
+        		megamanState.get("skill4") == true ||
+        		megamanState.get("skill5") == true ||
+        		megamanState.get("skill6") == true ||
+        		megamanState.get("skill7") == true ||
+        		megamanState.get("skill8") == true 
     			)
     		return true;
     	else return false;
@@ -1119,9 +1133,10 @@ public class Megaman extends Human {
     }
     public void skill1(Megaman enemy) {
     	//skill ban ra con rong nuoc
-    	if(megamanState.get("skill1")==false&&freeze()==false&&manaCheck(66)) {
+    	if(megamanState.get("skill1")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(66)) {
     		manaDecrease(66);
     		stopRun();
+    		skill1aud.play();
     		megamanState.put("skill1", true);
     		startTime.put("skill1", System.nanoTime());
     		skill1.reset();
@@ -1135,8 +1150,8 @@ public class Megaman extends Human {
     }
     
     public void skill6(Megaman enemy) {
-    	//skill ban ra con rong nuoc
-    	if(megamanState.get("skill6")==false&&freeze()==false&&manaCheck(33)) {
+    	
+    	if(megamanState.get("skill6")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(33)) {
     		manaDecrease(33);
     		stopRun();
     		megamanState.put("skill6", true);
@@ -1153,8 +1168,10 @@ public class Megaman extends Human {
     
     public void skill7(Megaman enemy) {
     	//skill ban ra con rong nuoc
-    	if(megamanState.get("skill7")==false&&freeze()==false&&manaCheck(66)) {
+    	if(megamanState.get("skill7")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(66)) {
     		manaDecrease(66);
+    		skill7aud.play();
+    		
     		skillObject7.reset();
     		stopRun();
     		megamanState.put("skill7", true);
@@ -1171,8 +1188,9 @@ public class Megaman extends Human {
     
     public void skill3(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill3")==false&&freeze()==false&&manaCheck(66)) {
+    	if(megamanState.get("skill3")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(66)) {
     		manaDecrease(66);
+    		skill3aud.play();
     		stopRun();
     		megamanState.put("skill3", true);
     		startTime.put("skill3", System.nanoTime());
@@ -1188,8 +1206,9 @@ public class Megaman extends Human {
     
     public void skill2(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill2")==false&&freeze()==false&&manaCheck(33)) {
+    	if(megamanState.get("skill2")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(33)) {
     		manaDecrease(33);
+    		skill2aud.play();
     		stopRun();
     		megamanState.put("skill2", true);
     		startTime.put("skill2", System.nanoTime());
@@ -1205,8 +1224,9 @@ public class Megaman extends Human {
     
     public void skill4(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill4")==false&&freeze()==false&&manaCheck(33)) {
+    	if(megamanState.get("skill4")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(33)) {
     		manaDecrease(33);
+    		skill4aud.play();
     		stopRun();
     		megamanState.put("skill4", true);
     		startTime.put("skill4", System.nanoTime());
@@ -1222,8 +1242,9 @@ public class Megaman extends Human {
     
     public void skill8() {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill8")==false&&freeze()==false&&manaCheck(66)) {
+    	if(megamanState.get("skill8")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(66)) {
     		manaDecrease(66);
+    		skill8aud.play();
     		stopRun();
     		megamanState.put("skill8", true);
     		startTime.put("skill8", System.nanoTime());
@@ -1238,8 +1259,9 @@ public class Megaman extends Human {
     
     public void skill5(Megaman enemy) {
     	//skill dam ra mauxanh
-    	if(megamanState.get("skill5")==false&&freeze()==false&&manaCheck(100)) {
+    	if(megamanState.get("skill5")==false&&freeze()==false&&getIsJumping()==false&&manaCheck(100)) {
     		manaDecrease(100);
+    		skill5aud.play();
     		stopRun();
     		megamanState.put("skill5", true);
     		startTime.put("skill5", System.nanoTime());
